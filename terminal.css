@@ -92,7 +92,7 @@ a {
 .cursor {
         animation: cursor 2s infinite;
         color: rgb(0, 170, 0);
-        display: inline;
+        display: initial;
         width: 10px;
         margin-left: 5px;
         border-radius: 1px;
@@ -116,6 +116,13 @@ a {
 }
 
 .container {
-        display: flex;
+        display: inline-block;
         align-content: center;
+        margin-left: -200px;
+        white-space: nowrap;
+}
+
+.terminal {
+    white-space: nowrap;
+    margin-left: -200px;
 }
