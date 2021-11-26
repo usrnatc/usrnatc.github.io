@@ -92,7 +92,7 @@ a {
 .cursor {
         animation: cursor 2s infinite;
         color: rgb(0, 170, 0);
-        display: inline-block;
+        display: inline;
         width: 10px;
         margin-left: 5px;
         border-radius: 1px;
