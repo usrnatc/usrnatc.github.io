@@ -12,8 +12,8 @@ typewriter
     .typeString('#include "me.h"<br />')
     .typeString('Me *nathan = malloc(sizeof(*nathan));<br />')
     .typeString('nathan->age = 20;<br />')
-    .typeString('nathan->uni = (char *) malloc(STD_BUFFERSIZE * sizeof(char));<br />')
-    .typeString('sprintf(nathan->uni, \"University of Queensland\\n\");<br />')
+    .typeString('nathan->uni = NULL;<br />')
+    .typeString('asprintf(&(nathan->uni), \"University of Queensland\\n\");<br />')
     .typeString('nathan->langs = {\"Python\", \"Java\", \"C\", \"Haskell\", \"Dafny\", \"HTML\", \"CSS\"};<br />')
     .typeString('printf("%s\\n", nathan->info);<br />')
     .typeString('$ I am currently a third year software engineering student at UQ.<br />\
