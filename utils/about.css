@@ -1,0 +1,31 @@
+.about-image {
+
+    padding-top: 50px;
+    float: left;
+}
+
+@keyframes imagefilter {
+    50% {
+        filter: blur(5px);
+    }
+}
+
+.about-image:hover {
+
+    animation: imagefilter 3s infinite;
+}
+
+.about-text {
+
+    float: left;
+    padding-top: 50px;
+    padding-left: 10px;
+}
+
+.footer-smiley {
+
+    display: flex;
+    float: center;
+    padding-top: 500px;
+    text-align: center;
+}
