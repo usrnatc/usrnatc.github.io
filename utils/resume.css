@@ -64,7 +64,7 @@ body {
 
 @media only screen {
   .container {
-    max-width: 50em;
+    width: 80%;
   }
 }
 
