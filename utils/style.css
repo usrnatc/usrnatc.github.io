@@ -1,6 +1,7 @@
 @font-face {
     font-family: "Terminal";
     src: url("./Terminal.ttf") format("truetype");
+    font-display: swap;
 }
 
 html {
