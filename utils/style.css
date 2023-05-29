@@ -10,9 +10,17 @@ html {
 }
 
 body {
-    background-image: url("../media/bluematrix.gif");
-    background-size: 100vw 100vh;
     overflow: hidden;
+}
+
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
 }
 
 .texts {
@@ -113,9 +121,4 @@ body {
     font-family: Terminal;
     color: white;
     font-size: 33px;
-}
-
-.linebreak {
-
-    width: 100%;
 }
