@@ -443,8 +443,10 @@
 
     .education > .metadata {
         display: flex;
-        flex-flow: row;
+        flex-flow: row wrap;
         align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 34px;
     }
 
     .education > .metadata > * {
@@ -452,19 +454,20 @@
     }
 
     .education > .metadata > .domain {
-        margin-bottom: 34px;
-        text-align: left;
+        margin-bottom: 0px;
+        text-align: center;
         font: normal normal 600 25px/33px Segoe UI;
         letter-spacing: 0px;
         color: #DB6D28;
         text-shadow: 0px 3px 6px #00000029;
         opacity: 1;
+        flex-basis: 100%;
     }
 
     .education > .metadata > .institution {
         margin-left: 20px;
         text-align: left;
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 17px/24px Segoe UI;
         letter-spacing: 0px;
         color: #7D8590;
         text-shadow: 0px 3px 6px #00000029;
@@ -474,7 +477,7 @@
     .education > .metadata > .timeframe {
         margin-left: auto;
         text-align: left;
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 17px/24px Segoe UI;
         letter-spacing: 0px;
         color: #7D8590;
         text-shadow: 0px 3px 6px #00000029;
