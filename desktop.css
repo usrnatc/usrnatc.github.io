@@ -1,0 +1,608 @@
+@media (min-width: 1281px) {
+    body {
+        margin: 0px;
+        background: #010409 0% 0% no-repeat padding-box;
+
+        -ms-scrollbar-style: none;
+        scrollbar-width: none;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+	width: 0;
+    }
+
+    .content-wrapper {
+        position: absolute;
+        top: 240px;
+        width: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        z-index: -2;
+    }
+
+    .banner {
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: 95px;
+        margin: 0px;
+        padding: 0px;
+        position: fixed;
+        background: #161B22 0% 0% no-repeat padding-box;
+        opacity: 1;
+    }
+
+    .banner-text {
+        height: 48px;
+        margin-left: 40px;
+        margin-top: 24px;
+        display: inline-block;
+        text-align: left;
+        font: normal normal 900 40px/48px Input Mono;
+        letter-spacing: 0px;
+        color: #F0F6FC;
+        opacity: 1;
+    }
+
+    .header {
+        top: 95px;
+        left: 0px;
+        width: 100vw;
+        height: 109px;
+        position: fixed;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-around;
+        align-items: baseline;
+        background: rgba(13, 17, 23, 0.5) 0% 0% no-repeat padding-box;
+        border-top: 1px solid #393B3E;
+        border-bottom: 1px solid #393B3E;
+        opacity: 1;
+        backdrop-filter: blur(50px);
+        -webkit-backdrop-filter: blur(50px);
+    }
+
+    .header > .name {
+        text-align: left;
+        font: normal normal 900 40px/54px Segoe UI;
+        letter-spacing: 0px;
+        color: #E3B341;
+        text-shadow: 0px 3px 6px #010409;
+        opacity: 1;
+    }
+
+    .header > a {
+        text-align: left;
+        font: normal normal 900 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #E6EDF3;
+        text-shadow: 0px 3px 6px #010409;
+        text-decoration: none;
+        opacity: 1;
+    }
+
+    .header > a:hover {
+        text-decoration: underline;
+    }
+
+    .references {
+        top: 240px;
+        margin-bottom: 20px;
+        height: 627px;
+        display: flex;
+        flex: 0 0 251px;
+        flex-direction: column;
+        position: sticky;
+        background: #0D1117 0% 0% no-repeat padding-box;
+        border: 1px solid #393B3E;
+        border-radius: 5px;
+        opacity: 1;
+        z-index: -1;
+    }
+
+    .references > .title {
+        margin-left: 11px;
+        margin-top: 14px;
+        margin-bottom: 34px;
+        text-align: left;
+        font: normal normal bold 25px/33px Segoe UI;
+        letter-spacing: 0px;
+        color: #E3B341;
+        text-shadow: 0px 3px 6px #010409;
+        opacity: 1;
+    }
+
+    .reference {
+        width: 229px;
+        height: 162px;
+        margin-left: 11px;
+        margin-right: 11px;
+        margin-bottom: 20px;
+        text-align: center;
+        background: #161B22 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .reference > .name {
+        margin-top: 16px;
+        margin-bottom: 0px;
+        font: normal normal 600 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #F0F6FC;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .reference > .workplace {
+        font: normal normal 600 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #7D8590;
+        opacity: 1;
+    }
+
+    .reference > .position {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font: normal normal normal 15px/20px Segoe UI;
+        letter-spacing: 0px;
+        color: #7D8590;
+        opacity: 1;
+    }
+
+    .reference > .phone {
+        font: normal normal 600 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #F0F6FC;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .reference > a {
+        text-decoration: none;
+    }
+
+    .reference > a:hover {
+        text-decoration: underline;
+    }
+
+    .skills {
+        top: 240px;
+        margin-bottom: 20px;
+        height: 681px;
+        position: sticky;
+        flex: 0 0 287px;
+        background: #0D1117 0% 0% no-repeat padding-box;
+        border: 1px solid #393B3E;
+        border-radius: 5px;
+        opacity: 1;
+        z-index: -1;
+    }
+
+    .skills > .title {
+        margin-left: 11px;
+        margin-top: 14px;
+        margin-bottom: 34px;
+        text-align: left;
+        font: normal normal bold 25px/33px Segoe UI;
+        letter-spacing: 0px;
+        color: #E3B341;
+        text-shadow: 0px 3px 6px #010409;
+        opacity: 1;
+    }
+
+    .skill {
+        width: 267px;
+        height: 40px;
+        margin-top: 0px;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+        flex-direction: row;
+        column-gap: 10px;
+        align-items: center;
+        background: #161B22 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .skill > .icon {
+        height: 25px;
+        width: 25px;
+        margin-left: 80px;
+    }
+
+    .skill > .name {
+        text-align: left;
+        font: normal normal bold 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #F0F6FC;
+        opacity: 1;
+    }
+
+    .sections {
+        top: 0px;
+        display: flex;
+        flex: 0 20 calc(100% - 554px);
+        flex-flow: column wrap;
+        align-items: center;
+        mix-blend-mode: normal;
+        z-index: -1;
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .sections::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sections > .about,
+    .sections > .volunteers,
+    .sections > .educations,
+    .sections > .work-experiences {
+        margin-bottom: 20px;
+        width: calc(100% - 16px);
+        background: #0D1117 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        border: 1px solid #393B3E;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .about {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .about > .icon {
+        margin-left: 21px;
+        margin-top: -10px;
+    }
+
+    .about > .title {
+        margin-left: 10px;
+        margin-top: 17px;
+        margin-bottom: 34px;
+        text-align: left;
+        font: normal normal bold 25px/33px Segoe UI;
+        letter-spacing: 0px;
+        color: #E3B341;
+        text-shadow: 0px 3px 6px #010409;
+    }
+
+    .about > .text {
+        margin-left: 21px;
+        margin-right: 18px;
+        margin-top: 0px;
+        margin-bottom: 20px;
+        text-align: left;
+        font: normal normal normal 16px/35px Segoe UI;
+        letter-spacing: 0px;
+        color: #E6EDF3;
+        opacity: 1;
+    }
+
+    .volunteers {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .volunteers > .title {
+        margin-left: 10px;
+        margin-bottom: 34px;
+        justify-self: baseline;
+        text-align: left;
+        font: normal normal bold 25px/33px Segoe UI;
+        letter-spacing: 0px;
+        color: #E3B341;
+        text-shadow: 0px 3px 6px #010409;
+        opacity: 1;
+    }
+
+    .volunteers > .icon {
+        margin-left: 21px;
+    }
+
+    .volunteer {
+        width: 100%;
+        margin-left: 21px;
+        margin-right: 21px;
+        margin-bottom: 20px;
+        background: #161B22 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .volunteer > * {
+        margin-left: 21px;
+        margin-right: 21px;
+    }
+
+    .volunteer > .metadata {
+        display: flex;
+        flex-flow: row;
+        align-items: baseline;
+    }
+
+    .volunteer > .metadata > .title {
+        margin-bottom: 34px;
+        text-align: left;
+        font: normal normal 600 25px/33px Segoe UI;
+        letter-spacing: 0px;
+        color: #DB6D28;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .volunteer > .metadata .institution {
+        margin-left: 20px;
+        text-align: left;
+        font: normal normal 600 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #7D8590;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .volunteer > .metadata > .timeframe {
+        margin-left: auto;
+        text-align: left;
+        font: normal normal 600 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #7D8590;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .volunteer > .information,
+    .volunteer > .text {
+        margin-top: 0px;
+        text-align: left;
+        font: normal normal normal 16px/35px Segoe UI;
+        letter-spacing: 0px;
+        color: #E6EDF3;
+        opacity: 1;
+    }
+
+    .volunteer > .information > li > a {
+        text-decoration: none;
+        margin-left: auto;
+        text-align: left;
+        font: normal normal normal 16px/35px Segoe UI;
+        letter-spacing: 0px;
+        color: #7D8590;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .volunteer > .information > li > a:hover {
+        text-decoration: underline;
+    }
+
+    .courses {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .courses > .course {
+        height: 40px;
+        margin-left: 11px;
+        margin-bottom: 10px;
+        background: #0D1117 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        display: flex;
+        flex-flow: row;
+        flex-basis: calc(50% - 21px);
+        align-items: center;
+    }
+
+    .courses > .course > .code {
+        flex-basis: 30%;
+        font: normal normal bold 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #F0F6FC;
+        opacity: 1;
+        margin-left: 8px;
+        text-align: left;
+    }
+
+    .courses > .course > .name {
+        font: normal normal bold 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #F0F6FC;
+        opacity: 1;
+        text-align: left;
+        text-wrap: avoid;
+    }
+
+    .educations > div:last-of-type > .courses > .course {
+        justify-content: center;
+    }
+
+    .educations {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .educations > .icon {
+        margin-left: 21px;
+    }
+
+    .educations > .title {
+        margin-left: 10px;
+        margin-bottom: 34px;
+        justify-self: baseline;
+        font: normal normal bold 25px/33px Segoe UI;
+        letter-spacing: 0px;
+        color: #E3B341;
+        text-shadow: 0px 3px 6px #010409;
+        opacity: 1;
+    }
+
+    .education {
+        width: 100%;
+        margin-left: 21px;
+        margin-right: 21px;
+        margin-bottom: 20px;
+        background: #161B22 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .education > * {
+        margin-left: 21px;
+        margin-right: 21px;
+    }
+
+    .education > .metadata {
+        display: flex;
+        flex-flow: row;
+        align-items: baseline;
+    }
+
+    .education > .metadata > * {
+        margin-bottom: 0px;
+    }
+
+    .education > .metadata > .domain {
+        margin-bottom: 34px;
+        text-align: left;
+        font: normal normal 600 25px/33px Segoe UI;
+        letter-spacing: 0px;
+        color: #DB6D28;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .education > .metadata > .institution {
+        margin-left: 20px;
+        text-align: left;
+        font: normal normal 600 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #7D8590;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+    .education > .metadata > .timeframe {
+        margin-left: auto;
+        text-align: left;
+        font: normal normal 600 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #7D8590;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .education > .text {
+        text-align: left;
+        font: normal normal normal 16px/35px Segoe UI;
+        letter-spacing: 0px;
+        color: #E6EDF3;
+        opacity: 1;
+    }
+
+    .work-experiences {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .work-experiences > .icon {
+        margin-left: 21px;
+    }
+
+    .work-experiences > .title {
+        margin-left: 10px;
+        margin-bottom: 34px;
+        text-align: left;
+        justify-self: baseline;
+        font: normal normal bold 25px/33px Segoe UI;
+        letter-spacing: 0px;
+        color: #E3B341;
+        text-shadow: 0px 3px 6px #010409;
+        opacity: 1;
+    }
+
+    .work-experience {
+        width: 100%;
+        margin-left: 21px;
+        margin-right: 21px;
+        margin-bottom: 20px;
+        background: #161B22 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .work-experience > * {
+        margin-left: 21px;
+        margin-right: 21px;
+    }
+
+    .work-experience > .metadata > a {
+        text-decoration: none;
+    }
+
+    .work-experience > .metadata > a:hover {
+        text-decoration: underline;
+    }
+
+    .work-experience > .metadata {
+        display: flex;
+        flex-flow: row;
+        align-items: baseline;
+    }
+
+    .work-experience > .metadata > * {
+        margin-bottom: 0px;
+    }
+
+    .work-experience > .metadata > .position {
+        text-align: left;
+        font: normal normal 600 25px/33px Segoe UI;
+        letter-spacing: 0px;
+        color: #DB6D28;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .work-experience > .metadata > .workplace {
+        margin-left: 20px;
+        text-align: left;
+        font: normal normal 600 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #7D8590;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .work-experience > .metadata > .timeframe {
+        margin-left: auto;
+        text-align: left;
+        font: normal normal 600 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #7D8590;
+        text-shadow: 0px 3px 6px #00000029;
+        opacity: 1;
+    }
+
+    .work-experience > .text {
+        text-align: left;
+        font: normal normal normal 16px/35px Segoe UI;
+        letter-spacing: 0px;
+        color: #F0F6FC;
+        opacity: 1;
+    }
+
+    .work-experience > .text > * {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}

@@ -1,42 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- https://xd.adobe.com/view/978ed3f8-abab-46f2-8d5a-ee0fa317ece5-c2dd/specs/ -->
+<html lang="en_AU">
     <head>
-        <title>~~~usrnatc~~~</title>
-        <link rel="stylesheet" type="text/css" href="utils/style.css">
-        <link rel="icon" type="image/x-icon" href="media/japanesegreenmagcover.png">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="usrnatc main webpage">
+        <link rel="stylesheet" media="(min-width: 1281px)"  href="desktop.css">
+        <link rel="stylesheet" media="(min-width: 320px) and (max-width: 599px)" href="mobile.css">
+        <link rel="stylesheet" media="(min-width: 600px) and (max-width: 1024px)" href="tablet.css">
+        <link rel="stylesheet" media="(min-width: 1025px) and (max-width: 1280px)" href="laptop.css">
+        <meta charset="UTF-8">
+        <meta name="author" content="Nathan Corcoran">
+        <meta name="title" content="Nathan Corcoran Resume">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Nathan Corcoran Resume</title>
     </head>
     <body>
-        <!-- background video -->
-        <video class="video-background" autoplay loop muted playsinline>
-            <source src="media/bluematrix.webm" type="video/webm"/>
-            <source src="media/bluematrix.mp4" type="video/mp4"/>
-        </video>
-        <nav class="navpane">
-            <ul class="navlist">
-                <li class="texts"><b>Navigation:</b></li>
-                <img src="media/linebreak.png" width="100%"></img>
-                <br><br>
-                <li><a class="texts links" target="mainframe" href="pages/home.html">Home</a></li>
-                <li><a class="texts links" target="mainframe" href="pages/about.html">About</a></li>
-                <li><a class="texts links" target="mainframe" href="pages/resume.html">Resume</a></li>
-                <img src="media/linebreak.png" width="100%"></img>
-                <img src="media/linebreak.png" width="100%"></img>
-                <br><br><br>
-                <li class="texts"><b>Recent Posts:</b></li>
-                <img src="media/linebreak.png" width="100%"></img>
-                <br><br>
-                <li><a class="texts links" target="mainframe" href="posts/000.html">#000 - GB Specs</a></li>
-                <img src="media/linebreak.png" width="100%"></img>
-                <img src="media/linebreak.png" width="100%"></img>
-            </ul>
-        </nav>
         <div class="banner">
-            <text class="banner-text">~~usrnatc~~</text>
+            <p class="banner-text">~~usrnatc~~</p>
         </div>
-        <div class="main">
-            <object data="pages/home.html" type="text/html" name="mainframe" class="main-display"></object>
+        <div class="header">
+            <p class="name">Nathan Corcoran</p>
+            <a class="email" href="mailto:usrnatc@tutanota.com">usrnatc@tutanota.com</a>
+            <a class="phone" href="tel:0435639082">0 435 639 082</a>
+            <a class="github" rel="prefetch" target="_blank" href="https://github.com/usrnatc">github/usrnatc</a>
+        </div>
+        <div class="content-wrapper">
+            <div class="references">
+                <p class="title">References</p>
+                <div class="reference">
+                    <p class="name">Stephen McKinnon</p>
+                    <a class="workplace" rel="prefetch" target="_blank" href="https://www.toysrus.com.au">Toys &quot;R&quot; Us</a>
+                    <p class="position">Customer Service Manager</p>
+                    <a class="phone" href="tel:0468848408">0 468 848 408</a>
+                </div>
+                <div class="reference">
+                    <p class="name">Joshua Cooper</p>
+                    <a class="workplace" rel="prefetch" target="_blank" href="https://www.toysrus.com.au">Toys &quot;R&quot; Us</a>
+                    <p class="position">Assistant Store Manager</p>
+                    <a class="phone" href="tel:0402814007">0 402 814 007</a>
+                </div>
+                <div class="reference">
+                    <p class="name">Ray Archibald</p>
+                    <a class="workplace" rel="prefetch" target="_blank" href="https://www.tabcorp.com.au">TabCorp</a>
+                    <p class="position">Distribution Manager</p>
+                    <a class="phone" href="tel:0427645995">0 427 645 995</a>
+                </div>
+            </div>
+            <div class="sections">
+                <div class="about">
+                    <img class="icon" alt="about icon" src="utils/about-icon.svg">
+                    <p class="title">About</p>
+                    <p class="text">
+                        I am a driven and collaborative Software Engineering
+                        student at the University of Queensland. I have a strong foundation
+                        in programming, including the C, C++, Java, Python, and Golang languages.
+                        I also have experience in writing software for various operating systems
+                        such as Windows, GNU/Linux, and OpenBSD, with a particular preference for
+                        UNIX-based systems. I am eager to gain hands-on experience and knowledge
+                        to continue developing my skills as a software engineer and developer.
+                        My interests include language design and development, logical analysis of
+                        code, cybersecurity, and distributed networking. I am highly motivated
+                        to deepen my understanding of these fields.
+                    </p>
+                </div>
+                <div class="volunteers">
+                    <img class="icon" alt="volunteer icon" src="utils/volunteer-icon.svg">
+                    <p class="title">Volunteer Work</p>
+                    <div class="volunteer">
+                        <div class="metadata">
+                            <p class="title">National Missing Persons Hackathon</p>
+                            <p class="timeframe">2020</p>
+                        </div>
+                        <p class="text">
+                            Participated in the NMP Hackathon 2020. This was my first
+                            experience in the world of OSINT and I very much enjoyed
+                            learning new concepts and finding new tools to use in the
+                            future
+                        </p>
+                        <ul class="information">
+                            <li>Verification: <a rel="prefetch" target="_blank" href="https://ca.badgr.com/public/assertions/S1xs3jyuRLuFRd2yx18NHw">Participation Badge</a></li>
+                        </ul>
+                    </div>
+                    <div class="volunteer">
+                        <div class="metadata">
+                            <p class="title">Cadet Staff</p>
+                            <p class="institution">Australian Air Force Cadets</p>
+                            <p class="timeframe">2014 - 2018</p>
+                        </div>
+                        <p class="text">
+                            During my time in the AAFC I was required to expand
+                            and improve my skillset in every situation faced;
+                            not only at weekly meetings, but also during the
+                            multiple promotion courses that I attended
+                        </p>
+                        <ul class="information">
+                            <li>Junior Non-Commissioned Officers Course (Junior Promotional Course)</li>
+                            <li>Senior Non-Commissioned Officers Course (Senior Promotional Course)</li>
+                            <li>Advanced Stage Cadet Dux Award</li>
+                            <li>Cadets Logistics Officer</li>
+                            <li>Lecturer</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="educations">
+                    <img class="icon" src="utils/education-icon.svg">
+                    <p class="title">Education</p>
+                    <div class="education">
+                        <div class="metadata">
+                            <p class="domain">Software Engineering, Bachelor (Honours)</p>
+                            <p class="institution">University of Queensland</p>
+                            <p class="timeframe">2019 - Present</p>
+                        </div>
+                        <p class="text">
+                            During my time as a student at UQ I have completed a wide range of courses and plan
+                            to finish my degree off by completing my honours thesis in 2024. Some notable courses
+                            that I have successfully finished include:
+                        </p>
+                        <ul class="text">
+                            <li>Compilers &amp; Interpreters</li>
+                            <li>Principles of Program Analysis</li>
+                            <li>Machine Learning, and</li>
+                            <li>Operating Systems Architecture</li>
+                        </ul>
+                        <p class="text">Throughout these courses I have completed such projects as:</p>
+                        <ul class="text">
+                            <li>developing an OpenBSD driver for a multi-slotted USB CCID card reader</li>
+                            <li>developing an interpreter and bytecode generator for the PL0 language</li>
+                            <li>implementing static pointer analysis in Scala and</li>
+                            <li>developing common AI models</li>
+                        </ul>
+                    </div>
+                    <div class="education">
+                        <div class="metadata">
+                            <p class="domain">Secondary Schooling</p>
+                            <p class="institution">Holland Park State High School</p>
+                            <p class="timeframe">2014 - 2018</p>
+                        </div>
+                        <div class="courses">
+                            <div class="course">
+                                <p class="name">Physics</p>
+                            </div>
+                            <div class="course">
+                                <p class="name">Chemistry</p>
+                            </div>
+                            <div class="course">
+                                <p class="name">English OP</p>
+                            </div>
+                            <div class="course">
+                                <p class="name">Mathematics B</p>
+                            </div>
+                            <div class="course">
+                                <p class="name">German</p>
+                            </div>
+                            <div class="course">
+                                <p class="name">IPT</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-experiences">
+                    <img class="icon" alt="work-experience icon" src="utils/work-experience-icon.svg">
+                    <p class="title">Work Experience</p>
+                    <div class="work-experience">
+                        <div class="metadata">
+                            <p class="position">Store Associate</p>
+                            <a class="workplace" rel="prefetch" target="_blank" href="https://www.toysrus.com.au">Toys &quot;R&quot; Us</a>
+                            <p class="timeframe">2015 - 2018</p>
+                        </div>
+                        <div class="text">
+                            <ul>
+                                <li>Greeting Customers, responding to questions and providing outstanding customer services</li>
+                                <li>Development of high-level product knowledge of store merchandise</li>
+                                <li>Directing customers to merchandise and answering specific questions about merchandise</li>
+                                <li>Processing purchases and refunds through registers and balancing register drawers</li>
+                                <li>Maintaining store cleanliness and orderly appearance of merchandise throughout the sales floor and storeroom</li>
+                                <li>Setting up and demonstrating specials and promotions to customers at front of store</li>
+                                <li>Received 'Associate of the Quarter' for my work ethic and management skills on weekend shifts</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="work-experience">
+                        <div class="metadata">
+                            <p class="position">Store Associate</p>
+                            <a class="workplace" rel="prefetch" target="_blank" href="https://www.mrtoys.com.au">Mr Toy&apos;s: Toyworld</a>
+                            <p class="timeframe">2018 - 2020</p>
+                        </div>
+                        <div class="text">
+                            <ul>
+                                <li>Greeting customers, responding to questions and providing outstading customer services</li>
+                                <li>Development of high-level product knowledge of store merchandise</li>
+                                <li>Directing customers to merchandise and answering specific questions about merchandise</li>
+                                <li>Processing purchases and refunds through registers and balancing register drawers</li>
+                                <li>Maintaining store cleanliness and orderly appearance of merchandise throughout the sales floor and storeroom</li>
+                                <li>Co-ordination and management of truck deliveries</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="work-experience">
+                        <div class="metadata">
+                            <p class="position">Dispatch</p>
+                            <a class="workplace" rel="prefetch" target="_blank" href="https://www.marketdirect.com.au">Market Direct Campers</a>
+                            <p class="timeframe">2022 - Present</p>
+                        </div>
+                        <div class="text">
+                            <ul>
+                                <li>Utilise inventory management software to track large stock movements</li>
+                                <li>Utilise courier service management software to dispatch and track stock deliveries</li>
+                                <li>Manage deliveries of large amounts of stock overseas</li>
+                                <li>Manage deliveries of heavy stock items to commercial and non-commercial recipients</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="work-experience">
+                        <div class="metadata">
+                            <p class="position">Tutor</p>
+                            <p class="workplace">Private High School Tutoring</p>
+                            <p class="timeframe">2019 - Present</p>
+                        </div>
+                        <div class="text">
+                            <ul>
+                                <li>Physics</li>
+                                <li>Mathematics A</li>
+                                <li>Mathematics B</li>
+                                <li>Mathematics C</li>
+                                <li>Chemistry</li>
+                                <li>Essential Mathematics</li>
+                                <li>English OP</li>
+                                <li>English Non-OP</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="skills">
+                <p class="title">Technologies</p>
+                <div class="skill">
+                    <img class="icon" src="utils/python-original.svg">
+                    <p class="name">Python</p>
+                </div>
+                <div class="skill">
+                    <img class="icon" src="utils/c-original.svg">
+                    <p class="name">C</p>
+                </div>
+                <div class="skill">
+                    <img class="icon" src="utils/cplusplus-original.svg">
+                    <p class="name">C++</p>
+                </div>
+                <div class="skill">
+                    <img class="icon" src="utils/java-original.svg">
+                    <p class="name">Java</p>
+                </div>
+                <div class="skill">
+                    <img class="icon" src="utils/vuejs-original.svg">
+                    <p class="name">Vuejs</p>
+                </div>
+                <div class="skill">
+                    <img class="icon" src="utils/go-original.svg">
+                    <p class="name">GoLang</p>
+                </div>
+                <div class="skill">
+                    <img class="icon" src="utils/git-original.svg">
+                    <p class="name">Git</p>
+                </div>
+                <div class="skill">
+                    <img class="icon" src="utils/windows8-original.svg">
+                    <p class="name">Windows</p>
+                </div>
+                <div class="skill">
+                    <img class="icon" src="utils/linux-original.svg">
+                    <p class="name">GNU/Linux</p>
+                </div>
+                <div class="skill">
+                    <img class="icon" src="utils/openbsd.png">
+                    <p class="name">OpenBSD</p>
+                </div>
+            </div>
         </div>
     </body>
 </html>
