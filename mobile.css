@@ -1,4 +1,26 @@
 @media (min-width: 320px) {
+    @font-face {
+        font-family: 'Segoe UI';
+        src: url('utils/segoeui.ttf') format('truetype'),
+             url('utils/segoeui-webfont.woff') format('woff'),
+             url('utils/segoeui-webfont.woff2') format('woff2'),
+             url('utils/segoeuib.ttf') format('truetype'),
+             url('utils/segoeuib-webfont.woff') format('woff'),
+             url('utils/segoeuib-webfont.woff2') format('woff2'),
+             url('utils/seguibl.ttf') format('truetype'),
+             url('utils/seguibl-webfont.woff') format('woff'),
+             url('utils/seguibl-webfont.woff2') format('woff2'),
+             url('utils/seguibli.ttf') format('truetype'),
+             url('utils/seguibli-webfont.woff') format('woff'),
+             url('utils/seguibli-webfont.woff2') format('woff2'),
+             url('utils/seguili.ttf') format('truetype'),
+             url('utils/seguili-webfont.woff') format('woff'),
+             url('utils/seguili-webfont.woff2') format('woff2'),
+             url('utils/seguisbi.ttf') format('truetype'),
+             url('utils/seguisbi-webfont.woff') format('woff'),
+             url('utils/seguisbi-webfont.woff2') format('woff2')
+    }
+
     body {
         margin: 0px;
         background: #010409 0% 0% no-repeat padding-box;

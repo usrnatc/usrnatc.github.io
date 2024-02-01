@@ -1,4 +1,25 @@
 @media (min-width: 1281px) {
+    @font-face {
+        font-family: 'Segoe UI Regular';
+        src: url('utils/segoeui.ttf') format('truetype'),
+             url('utils/segoeui-webfont.woff') format('woff'),
+             url('utils/segoeui-webfont.woff2') format('woff2'),
+    }
+
+    @font-face {
+        font-family: 'Segoe UI Black';
+        src: url('utils/seguibl.ttf') format('truetype'),
+             url('utils/seguibl-webfont.woff') format('woff'),
+             url('utils/seguibl-webfont.woff2') format('woff2');
+     }
+
+     @font-face {
+         font-family: 'Segoe UI Bold';
+         src: url('utils/segoeuib.ttf') format('truetype'),
+              url('utils/segoeuib-webfont.woff') format('woff'),
+              url('utils/segoeuib-webfont.woff2') format('woff2');
+      }
+
     body {
         margin: 0px;
         background: #010409 0% 0% no-repeat padding-box;
