@@ -1,25 +1,24 @@
 @media (min-width: 600px) {
     @font-face {
-        font-family: 'Segoe UI';
+        font-family: 'Segoe UI Regular';
         src: url('utils/segoeui.ttf') format('truetype'),
              url('utils/segoeui-webfont.woff') format('woff'),
              url('utils/segoeui-webfont.woff2') format('woff2'),
-             url('utils/segoeuib.ttf') format('truetype'),
-             url('utils/segoeuib-webfont.woff') format('woff'),
-             url('utils/segoeuib-webfont.woff2') format('woff2'),
-             url('utils/seguibl.ttf') format('truetype'),
-             url('utils/seguibl-webfont.woff') format('woff'),
-             url('utils/seguibl-webfont.woff2') format('woff2'),
-             url('utils/seguibli.ttf') format('truetype'),
-             url('utils/seguibli-webfont.woff') format('woff'),
-             url('utils/seguibli-webfont.woff2') format('woff2'),
-             url('utils/seguili.ttf') format('truetype'),
-             url('utils/seguili-webfont.woff') format('woff'),
-             url('utils/seguili-webfont.woff2') format('woff2'),
-             url('utils/seguisbi.ttf') format('truetype'),
-             url('utils/seguisbi-webfont.woff') format('woff'),
-             url('utils/seguisbi-webfont.woff2') format('woff2')
     }
+
+    @font-face {
+        font-family: 'Segoe UI Black';
+        src: url('utils/seguibl.ttf') format('truetype'),
+             url('utils/seguibl-webfont.woff') format('woff'),
+             url('utils/seguibl-webfont.woff2') format('woff2');
+     }
+
+     @font-face {
+         font-family: 'Segoe UI Bold';
+         src: url('utils/segoeuib.ttf') format('truetype'),
+              url('utils/segoeuib-webfont.woff') format('woff'),
+              url('utils/segoeuib-webfont.woff2') format('woff2');
+      }
 
     body {
         margin: 0px;
@@ -561,8 +560,9 @@
 
     .work-experience > .metadata {
         display: flex;
-        flex-flow: row;
+        flex-flow: row wrap;
         align-items: baseline;
+        justify-content: space-between;
     }
 
     .work-experience > .metadata > * {
@@ -570,12 +570,13 @@
     }
 
     .work-experience > .metadata > .position {
-        text-align: left;
+        text-align: center;
         font: normal normal 600 25px/33px Segoe UI;
         letter-spacing: 0px;
         color: #DB6D28;
         text-shadow: 0px 3px 6px #00000029;
         opacity: 1;
+        flex-basis: 100%;
     }
 
     .work-experience > .metadata > .workplace {
