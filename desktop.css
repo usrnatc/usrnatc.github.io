@@ -87,7 +87,7 @@
 
     .header > .name {
         text-align: left;
-        font: normal normal 900 40px/54px Segoe UI;
+        font: normal normal 900 40px/54px Segoe UI Black;
         letter-spacing: 0px;
         color: #E3B341;
         text-shadow: 0px 3px 6px #010409;
@@ -96,7 +96,7 @@
 
     .header > a {
         text-align: left;
-        font: normal normal 900 20px/27px Segoe UI;
+        font: normal normal 900 20px/27px Segoe UI Black;
         letter-spacing: 0px;
         color: #E6EDF3;
         text-shadow: 0px 3px 6px #010409;
@@ -128,7 +128,7 @@
         margin-top: 14px;
         margin-bottom: 34px;
         text-align: left;
-        font: normal normal bold 25px/33px Segoe UI;
+        font: normal normal bold 25px/33px Segoe UI Bold;
         letter-spacing: 0px;
         color: #E3B341;
         text-shadow: 0px 3px 6px #010409;
@@ -151,7 +151,7 @@
     .reference > .name {
         margin-top: 16px;
         margin-bottom: 0px;
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 20px/27px Segoe UI Bold;
         letter-spacing: 0px;
         color: #F0F6FC;
         text-shadow: 0px 3px 6px #00000029;
@@ -159,7 +159,7 @@
     }
 
     .reference > .workplace {
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #7D8590;
         opacity: 1;
@@ -168,14 +168,14 @@
     .reference > .position {
         margin-top: 20px;
         margin-bottom: 10px;
-        font: normal normal normal 15px/20px Segoe UI;
+        font: normal normal normal 15px/20px Segoe UI Regular;
         letter-spacing: 0px;
         color: #7D8590;
         opacity: 1;
     }
 
     .reference > .phone {
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 20px/27px Segoe UI Bold;
         letter-spacing: 0px;
         color: #F0F6FC;
         text-shadow: 0px 3px 6px #00000029;
@@ -208,7 +208,7 @@
         margin-top: 14px;
         margin-bottom: 34px;
         text-align: left;
-        font: normal normal bold 25px/33px Segoe UI;
+        font: normal normal bold 25px/33px Segoe UI Bold;
         letter-spacing: 0px;
         color: #E3B341;
         text-shadow: 0px 3px 6px #010409;
@@ -240,7 +240,7 @@
 
     .skill > .name {
         text-align: left;
-        font: normal normal bold 20px/27px Segoe UI;
+        font: normal normal bold 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #F0F6FC;
         opacity: 1;
@@ -291,7 +291,7 @@
         margin-top: 17px;
         margin-bottom: 34px;
         text-align: left;
-        font: normal normal bold 25px/33px Segoe UI;
+        font: normal normal bold 25px/33px Segoe UI Bold;
         letter-spacing: 0px;
         color: #E3B341;
         text-shadow: 0px 3px 6px #010409;
@@ -303,7 +303,7 @@
         margin-top: 0px;
         margin-bottom: 20px;
         text-align: left;
-        font: normal normal normal 16px/35px Segoe UI;
+        font: normal normal normal 16px/35px Segoe UI Regular;
         letter-spacing: 0px;
         color: #E6EDF3;
         opacity: 1;
@@ -319,7 +319,7 @@
         margin-bottom: 34px;
         justify-self: baseline;
         text-align: left;
-        font: normal normal bold 25px/33px Segoe UI;
+        font: normal normal bold 25px/33px Segoe UI Bold;
         letter-spacing: 0px;
         color: #E3B341;
         text-shadow: 0px 3px 6px #010409;
@@ -355,7 +355,7 @@
     .volunteer > .metadata > .title {
         margin-bottom: 34px;
         text-align: left;
-        font: normal normal 600 25px/33px Segoe UI;
+        font: normal normal 600 25px/33px Segoe UI Bold;
         letter-spacing: 0px;
         color: #DB6D28;
         text-shadow: 0px 3px 6px #00000029;
@@ -365,7 +365,7 @@
     .volunteer > .metadata .institution {
         margin-left: 20px;
         text-align: left;
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #7D8590;
         text-shadow: 0px 3px 6px #00000029;
@@ -375,7 +375,7 @@
     .volunteer > .metadata > .timeframe {
         margin-left: auto;
         text-align: left;
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #7D8590;
         text-shadow: 0px 3px 6px #00000029;
@@ -386,7 +386,7 @@
     .volunteer > .text {
         margin-top: 0px;
         text-align: left;
-        font: normal normal normal 16px/35px Segoe UI;
+        font: normal normal normal 16px/35px Segoe UI Regular;
         letter-spacing: 0px;
         color: #E6EDF3;
         opacity: 1;
@@ -396,7 +396,7 @@
         text-decoration: none;
         margin-left: auto;
         text-align: left;
-        font: normal normal normal 16px/35px Segoe UI;
+        font: normal normal normal 16px/35px Segoe UI Regular;
         letter-spacing: 0px;
         color: #7D8590;
         text-shadow: 0px 3px 6px #00000029;
@@ -426,7 +426,7 @@
 
     .courses > .course > .code {
         flex-basis: 30%;
-        font: normal normal bold 20px/27px Segoe UI;
+        font: normal normal bold 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #F0F6FC;
         opacity: 1;
@@ -435,7 +435,7 @@
     }
 
     .courses > .course > .name {
-        font: normal normal bold 20px/27px Segoe UI;
+        font: normal normal bold 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #F0F6FC;
         opacity: 1;
@@ -460,7 +460,7 @@
         margin-left: 10px;
         margin-bottom: 34px;
         justify-self: baseline;
-        font: normal normal bold 25px/33px Segoe UI;
+        font: normal normal bold 25px/33px Segoe UI Bold;
         letter-spacing: 0px;
         color: #E3B341;
         text-shadow: 0px 3px 6px #010409;
@@ -496,7 +496,7 @@
     .education > .metadata > .domain {
         margin-bottom: 34px;
         text-align: left;
-        font: normal normal 600 25px/33px Segoe UI;
+        font: normal normal 600 25px/33px Segoe UI Bold;
         letter-spacing: 0px;
         color: #DB6D28;
         text-shadow: 0px 3px 6px #00000029;
@@ -506,7 +506,7 @@
     .education > .metadata > .institution {
         margin-left: 20px;
         text-align: left;
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #7D8590;
         text-shadow: 0px 3px 6px #00000029;
@@ -515,7 +515,7 @@
     .education > .metadata > .timeframe {
         margin-left: auto;
         text-align: left;
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #7D8590;
         text-shadow: 0px 3px 6px #00000029;
@@ -524,7 +524,7 @@
 
     .education > .text {
         text-align: left;
-        font: normal normal normal 16px/35px Segoe UI;
+        font: normal normal normal 16px/35px Segoe UI Regular;
         letter-spacing: 0px;
         color: #E6EDF3;
         opacity: 1;
@@ -544,7 +544,7 @@
         margin-bottom: 34px;
         text-align: left;
         justify-self: baseline;
-        font: normal normal bold 25px/33px Segoe UI;
+        font: normal normal bold 25px/33px Segoe UI Bold;
         letter-spacing: 0px;
         color: #E3B341;
         text-shadow: 0px 3px 6px #010409;
@@ -587,7 +587,7 @@
 
     .work-experience > .metadata > .position {
         text-align: left;
-        font: normal normal 600 25px/33px Segoe UI;
+        font: normal normal 600 25px/33px Segoe UI Bold;
         letter-spacing: 0px;
         color: #DB6D28;
         text-shadow: 0px 3px 6px #00000029;
@@ -597,7 +597,7 @@
     .work-experience > .metadata > .workplace {
         margin-left: 20px;
         text-align: left;
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #7D8590;
         text-shadow: 0px 3px 6px #00000029;
@@ -607,7 +607,7 @@
     .work-experience > .metadata > .timeframe {
         margin-left: auto;
         text-align: left;
-        font: normal normal 600 20px/27px Segoe UI;
+        font: normal normal 600 20px/27px Segoe UI Regular;
         letter-spacing: 0px;
         color: #7D8590;
         text-shadow: 0px 3px 6px #00000029;
@@ -616,7 +616,7 @@
 
     .work-experience > .text {
         text-align: left;
-        font: normal normal normal 16px/35px Segoe UI;
+        font: normal normal normal 16px/35px Segoe UI Regular;
         letter-spacing: 0px;
         color: #F0F6FC;
         opacity: 1;
