@@ -1,279 +1,1392 @@
 <!DOCTYPE html>
-<!-- https://xd.adobe.com/view/978ed3f8-abab-46f2-8d5a-ee0fa317ece5-c2dd/specs/ -->
-<html lang="en_AU">
+<html lang="en-AU">
     <head>
-        <link rel="stylesheet" media="(min-width: 1281px)"  href="desktop.css">
-        <link rel="stylesheet" media="(min-width: 320px) and (max-width: 599px)" href="mobile.css">
-        <link rel="stylesheet" media="(min-width: 600px) and (max-width: 1024px)" href="tablet.css">
-        <link rel="stylesheet" media="(min-width: 1025px) and (max-width: 1280px)" href="laptop.css">
         <meta charset="UTF-8">
-        <meta name="author" content="Nathan Corcoran">
-        <meta name="title" content="Nathan Corcoran Resume">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pips Solver</title>
 
-        <title>Nathan Corcoran Resume</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <style>
+            :root {
+                --bg: #0C0C0E;
+                --surface: #161619;
+                --surface2: #1E1E22;
+                --border: #2A2A30;
+                --text: #E8E6E3;
+                --text2: #8A8A94;
+                --accent: #E8A244;
+                --accent2: #D4793A;
+                --hole: #0A0A0C;
+                --green: #4EC990;
+                --red: #E05555;
+                --region-colors:
+                    #5B8DEF, 
+                    #E05555, 
+                    #4EC990, 
+                    #C678DD, 
+                    #E8A244,
+                    #56B6C2, 
+                    #D4793A, 
+                    #7C8CBF, 
+                    #E06C9F, 
+                    #98C379,
+                    #D19A66, 
+                    #61AFEF, 
+                    #BE5046, 
+                    #A9DC76, 
+                    #FC9867,
+                    #78DCE8, 
+                    #FF6188, 
+                    #A8CC8C, 
+                    #E1ACFF, 
+                    #FFD580,
+                    #88C0D0, 
+                    #BF616A, 
+                    #A3BE8C, 
+                    #B48EAD, 
+                    #EBCB8B,
+                    #D08770;
+            }
+
+            * { 
+                margin: 0; 
+                padding: 0; 
+                box-sizing: border-box; 
+            }
+
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family: 'DM Sans', sans-serif;
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+
+            .app {
+                display: grid;
+                grid-template-columns: 280px 1fr 260px;
+                grid-template-rows: 56px 1fr;
+                height: 100vh;
+            }
+
+            header {
+                grid-column: 1 / -1;
+                background: var(--surface);
+                border-bottom: 1px solid var(--border);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 20px;
+            }
+
+            header h1 {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 18px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                color: var(--accent);
+            }
+
+            header .subtitle {
+                font-size: 12px;
+                color: var(--text2);
+                font-family: 'JetBrains Mono', monospace;
+            }
+
+            .sidebar-left {
+                background: var(--surface);
+                border-right: 1px solid var(--border);
+                padding: 16px;
+                overflow-y: auto;
+            }
+
+            .main {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+                overflow: auto;
+                position: relative;
+            }
+
+            .sidebar-right {
+                background: var(--surface);
+                border-left: 1px solid var(--border);
+                padding: 16px;
+                overflow-y: auto;
+            }
+
+            .section { 
+                margin-bottom: 20px; 
+            }
+
+            .section-title {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                color: var(--text2);
+                margin-bottom: 10px;
+            }
+
+            label.field {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 13px;
+                color: var(--text);
+                margin-bottom: 8px;
+            }
+
+            label.field input, 
+            label.field select {
+                width: 64px;
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                color: var(--text);
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 13px;
+                font-family: 'JetBrains Mono', monospace;
+                text-align: center;
+            }
+
+            label.field select { 
+                width: auto; 
+                min-width: 80px; 
+                text-align: left; 
+            }
+
+            .btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                width: 100%;
+                padding: 8px 12px;
+                border: 1px solid var(--border);
+                border-radius: 6px;
+                background: var(--surface2);
+                color: var(--text);
+                font-size: 13px;
+                font-family: 'DM Sans', sans-serif;
+                cursor: pointer;
+                transition: all 0.15s;
+                margin-bottom: 6px;
+            }
+
+            .btn:hover { 
+                border-color: var(--accent); 
+                color: var(--accent); 
+            }
+
+            .btn.active { 
+                background: var(--accent); 
+                color: var(--bg); 
+                border-color: var(--accent); 
+                font-weight: 600; 
+            }
+
+            .btn.primary { 
+                background: var(--accent); 
+                color: var(--bg); 
+                border-color: var(--accent); 
+                font-weight: 600; 
+            }
+
+            .btn.primary:hover { 
+                background: var(--accent2); 
+                border-color: var(--accent2); 
+            }
+
+            .tool-group { 
+                display: flex; 
+                flex-direction: column; 
+                gap: 4px; 
+            }
+
+            .region-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 6px 8px;
+                border-radius: 4px;
+                font-size: 13px;
+                cursor: pointer;
+                border: 1px solid transparent;
+                transition: all 0.12s;
+            }
+
+            .region-item:hover { 
+                background: var(--surface2); 
+            }
+
+            .region-item.active { 
+                border-color: var(--accent); 
+                background: var(--surface2); 
+            }
+
+            .region-swatch {
+                width: 14px; 
+                height: 14px;
+                border-radius: 3px;
+                flex-shrink: 0;
+            }
+
+            .region-rule {
+                margin-left: auto;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 11px;
+                color: var(--text2);
+            }
+
+            .region-delete {
+                width: 18px; 
+                height: 18px;
+                border: none; 
+                background: transparent;
+                color: var(--text2); 
+                font-size: 14px;
+                cursor: pointer; 
+                border-radius: 3px;
+                display: flex; 
+                align-items: center; 
+                justify-content: center;
+                flex-shrink: 0; 
+                line-height: 1;
+            }
+
+            .region-delete:hover { 
+                color: var(--red); 
+                background: var(--surface); 
+            }
+
+            .grid-container { 
+                position: relative; 
+                transform-origin: center center; 
+                transition: transform 0.1s ease-out; 
+                will-change: transform;
+                overflow: visible;
+            }
+
+            .grid {
+                display: inline-grid;
+                gap: 0;
+                border: 2px solid var(--border);
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
+            .cell {
+                width: 52px; 
+                height: 52px;
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--text);
+                cursor: pointer;
+                user-select: none;
+                position: relative;
+                transition: filter 0.1s;
+                will-change: background-color, border-color;
+            }
+
+            .cell:hover { 
+                filter: brightness(1.2); 
+            }
+
+            .cell.solved:hover {
+                filter: none;
+            }
+
+            .cell.hole {
+                background: var(--hole);
+                color: #333;
+            }
+
+            .cell.solved { 
+                color: var(--text); 
+            }
+
+            .cell.no-border-top { 
+                border-top-color: transparent; 
+            }
+
+            .cell.no-border-bottom { 
+                border-bottom-color: transparent; 
+            }
+
+            .cell.no-border-left { 
+                border-left-color: transparent; 
+            }
+
+            .cell.no-border-right { 
+                border-right-color: transparent; 
+            }
+
+            .domino-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .domino-chip {
+                display: flex;
+                align-items: center;
+                gap: 2px;
+                padding: 3px 6px;
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 12px;
+                cursor: pointer;
+                transition: all 0.12s;
+            }
+
+            .domino-chip:hover { 
+                border-color: var(--red); 
+            }
+
+            .domino-chip .pip {
+                width: 16px; 
+                height: 16px;
+                border-radius: 3px;
+                background: var(--accent);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--bg);
+            }
+
+            .domino-add {
+                display: flex;
+                gap: 6px;
+                align-items: center;
+                margin-top: 8px;
+            }
+
+            .domino-add input {
+                width: 36px;
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                color: var(--text);
+                padding: 4px;
+                border-radius: 4px;
+                text-align: center;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 13px;
+            }
+
+            .domino-add button {
+                padding: 4px 10px;
+                background: var(--accent);
+                border: none;
+                border-radius: 4px;
+                color: var(--bg);
+                font-weight: 600;
+                font-size: 12px;
+                cursor: pointer;
+            }
+
+            .rule-editor {
+                margin-top: 8px;
+                padding: 10px;
+                background: var(--surface2);
+                border-radius: 6px;
+                border: 1px solid var(--border);
+            }
+
+            .rule-editor label {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 13px;
+                margin-bottom: 6px;
+            }
+
+            .rule-editor select, 
+            .rule-editor input {
+                background: var(--bg);
+                border: 1px solid var(--border);
+                color: var(--text);
+                padding: 4px 6px;
+                border-radius: 4px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 12px;
+            }
+
+            .output-area {
+                margin-top: 12px;
+                width: 100%;
+            }
+
+            .output-area textarea {
+                width: 100%;
+                height: 80px;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                color: var(--green);
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 12px;
+                padding: 8px;
+                border-radius: 6px;
+                resize: vertical;
+            }
+
+            .status {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 11px;
+                color: var(--text2);
+                padding: 6px 0;
+            }
+
+            .solution-banner {
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 12px;
+                margin-bottom: 12px;
+                display: none;
+            }
+
+            .solution-banner.solved {
+                display: block;
+                background: #1a2e1a;
+                border: 1px solid var(--green);
+                color: var(--green);
+            }
+
+            .solution-banner.failed {
+                display: block;
+                background: #2e1a1a;
+                border: 1px solid var(--red);
+                color: var(--red);
+            }
+
+            .cell.domino-edge-right  { 
+                border-right: 1px dotted rgba(255,255,255,0.85) !important; 
+            }
+
+            .cell.domino-edge-left   {
+                border-left: 1px dotted rgba(255,255,255,0.85) !important; 
+            }
+
+            .cell.domino-edge-top    {
+                border-top: 1px dotted rgba(255,255,255,0.85) !important; 
+            }
+
+            .cell.domino-edge-bottom {
+                border-bottom: 1px dotted rgba(255,255,255,0.85) !important; 
+            }
+
+            .cell.domino-join-right  {
+                border-right-color: transparent !important; 
+            }
+
+            .cell.domino-join-left   {
+                border-left-color: transparent !important; 
+            }
+
+            .cell.domino-join-top    {
+                border-top-color: transparent !important; 
+            }
+
+            .cell.domino-join-bottom {
+                border-bottom-color: transparent !important; 
+            }
+
+            .region-badge {
+                position: absolute;
+                z-index: 10;
+                width: 24px;
+                height: 24px;
+                transform: rotate(45deg);
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: none;
+                box-shadow: 0 1px 6px rgba(0,0,0,0.6);
+            }
+            .region-badge span {
+                transform: rotate(-45deg);
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 9px;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1;
+                white-space: nowrap;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            }
+
+            ::-webkit-scrollbar { 
+                width: 6px; 
+            }
+
+            ::-webkit-scrollbar-track { 
+                background: transparent; 
+            }
+
+            ::-webkit-scrollbar-thumb { 
+                background: var(--border); 
+                border-radius: 3px; 
+            }
+        </style>
     </head>
+
     <body>
-        <div class="banner">
-            <p class="banner-text">~~usrnatc~~</p>
-        </div>
-        <div class="header">
-            <p class="name">Nathan Corcoran</p>
-            <a class="email" href="mailto:usrnatc@tutanota.com">usrnatc@tutanota.com</a>
-            <a class="phone" href="tel:0435639082">0 435 639 082</a>
-            <a class="github" rel="prefetch" target="_blank" href="https://github.com/usrnatc">github/usrnatc</a>
-        </div>
-        <div class="content-wrapper">
-            <div class="references">
-                <p class="title">References</p>
-                <div class="reference">
-                    <p class="name">Stephen McKinnon</p>
-                    <a class="workplace" rel="prefetch" target="_blank" href="https://www.toysrus.com.au">Toys &quot;R&quot; Us</a>
-                    <p class="position">Customer Service Manager</p>
-                    <a class="phone" href="tel:0468848408">0 468 848 408</a>
-                </div>
-                <div class="reference">
-                    <p class="name">Joshua Cooper</p>
-                    <a class="workplace" rel="prefetch" target="_blank" href="https://www.toysrus.com.au">Toys &quot;R&quot; Us</a>
-                    <p class="position">Assistant Store Manager</p>
-                    <a class="phone" href="tel:0402814007">0 402 814 007</a>
-                </div>
-                <div class="reference">
-                    <p class="name">Ray Archibald</p>
-                    <a class="workplace" rel="prefetch" target="_blank" href="https://www.tabcorp.com.au">TabCorp</a>
-                    <p class="position">Distribution Manager</p>
-                    <a class="phone" href="tel:0427645995">0 427 645 995</a>
-                </div>
-            </div>
-            <div class="sections">
-                <div class="about">
-                    <img class="icon" alt="about icon" src="utils/about-icon.svg">
-                    <p class="title">About</p>
-                    <p class="text">
-                        I am a driven and collaborative Software Engineering
-                        student at the University of Queensland. I have a strong foundation
-                        in programming, including the C, C++, Java, Python, and Golang languages.
-                        I also have experience in writing software for various operating systems
-                        such as Windows, GNU/Linux, and OpenBSD, with a particular preference for
-                        UNIX-based systems. I am eager to gain hands-on experience and knowledge
-                        to continue developing my skills as a software engineer and developer.
-                        My interests include language design and development, logical analysis of
-                        code, cybersecurity, and distributed networking. I am highly motivated
-                        to deepen my understanding of these fields.
-                    </p>
-                </div>
-                <div class="volunteers">
-                    <img class="icon" alt="volunteer icon" src="utils/volunteer-icon.svg">
-                    <p class="title">Volunteer Work</p>
-                    <div class="volunteer">
-                        <div class="metadata">
-                            <p class="title">National Missing Persons Hackathon</p>
-                            <p class="timeframe">2020</p>
-                        </div>
-                        <p class="text">
-                            Participated in the NMP Hackathon 2020. This was my first
-                            experience in the world of OSINT and I very much enjoyed
-                            learning new concepts and finding new tools to use in the
-                            future
-                        </p>
-                        <ul class="information">
-                            <li>Verification: <a rel="prefetch" target="_blank" href="https://ca.badgr.com/public/assertions/S1xs3jyuRLuFRd2yx18NHw">Participation Badge</a></li>
-                        </ul>
+        <div class="app">
+            <header>
+                <h1>
+                    PIPS
+                </h1>
+            </header>
+
+            <div class="sidebar-left">
+                <div class="section">
+                    <div class="section-title">
+                        Grid
                     </div>
-                    <div class="volunteer">
-                        <div class="metadata">
-                            <p class="title">Cadet Staff</p>
-                            <p class="institution">Australian Air Force Cadets</p>
-                            <p class="timeframe">2014 - 2018</p>
-                        </div>
-                        <p class="text">
-                            During my time in the AAFC I was required to expand
-                            and improve my skillset in every situation faced;
-                            not only at weekly meetings, but also during the
-                            multiple promotion courses that I attended
-                        </p>
-                        <ul class="information">
-                            <li>Junior Non-Commissioned Officers Course (Junior Promotional Course)</li>
-                            <li>Senior Non-Commissioned Officers Course (Senior Promotional Course)</li>
-                            <li>Advanced Stage Cadet Dux Award</li>
-                            <li>Cadets Logistics Officer</li>
-                            <li>Lecturer</li>
-                        </ul>
+                    <label class="field">
+                        Width
+                        <input type="number" id="gridW" value="5" min="2" max="20">
+                    </label>
+                    <label class="field">
+                        Height 
+                        <input type="number" id="gridH" value="4" min="2" max="20">
+                    </label>
+                    <button class="btn primary" onclick="rebuildGrid()">
+                        &#8634; Rebuild Grid
+                    </button>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">
+                        Regions
+                    </div>
+
+                    <div id="regionList"></div>
+
+                    <button class="btn" onclick="addRegion()" style="margin-top: 8px">
+                        &plus; New Region
+                    </button>
+                </div>
+
+                <div class="section" id="ruleSection" style="display:none">
+                    <div class="section-title">
+                        Rule for Region 
+                        <span id="ruleRegionLabel"></span>
+                    </div>
+                    <div class="rule-editor">
+                        <label>
+                            Type
+                            <select id="ruleType" onchange="updateRuleUI()">
+                                <option value="none">None</option>
+                                <option value="eq">Equal (=)</option>
+                                <option value="neq">Not Equal (!=)</option>
+                                <option value="gt">Sum &gt; N</option>
+                                <option value="lt">Sum &lt; N</option>
+                                <option value="sum">Sum = N</option>
+                            </select>
+                        </label>
+                        <label id="ruleValueRow" style="display:none">
+                            Value
+                            <input type="number" id="ruleValue" min="0" max="99" value="5">
+                        </label>
+                        <button class="btn" onclick="applyRule()" style="margin-top:6px">
+                            Apply
+                        </button>
                     </div>
                 </div>
-                <div class="educations">
-                    <img class="icon" src="utils/education-icon.svg">
-                    <p class="title">Education</p>
-                    <div class="education">
-                        <div class="metadata">
-                            <p class="domain">Software Engineering, Bachelor (Honours)</p>
-                            <p class="institution">University of Queensland</p>
-                            <p class="timeframe">2019 - Present</p>
-                        </div>
-                        <p class="text">
-                            During my time as a student at UQ I have completed a wide range of courses and plan
-                            to finish my degree off by completing my honours thesis in 2024. Some notable courses
-                            that I have successfully finished include:
-                        </p>
-                        <ul class="text">
-                            <li>Compilers &amp; Interpreters</li>
-                            <li>Principles of Program Analysis</li>
-                            <li>Machine Learning, and</li>
-                            <li>Operating Systems Architecture</li>
-                        </ul>
-                        <p class="text">Throughout these courses I have completed such projects as:</p>
-                        <ul class="text">
-                            <li>developing an OpenBSD driver for a multi-slotted USB CCID card reader</li>
-                            <li>developing an interpreter and bytecode generator for the PL0 language</li>
-                            <li>implementing static pointer analysis in Scala and</li>
-                            <li>developing common AI models</li>
-                        </ul>
-                    </div>
-                    <div class="education">
-                        <div class="metadata">
-                            <p class="domain">Secondary Schooling</p>
-                            <p class="institution">Holland Park State High School</p>
-                            <p class="timeframe">2014 - 2018</p>
-                        </div>
-                        <div class="courses">
-                            <div class="course">
-                                <p class="name">Physics</p>
-                            </div>
-                            <div class="course">
-                                <p class="name">Chemistry</p>
-                            </div>
-                            <div class="course">
-                                <p class="name">English OP</p>
-                            </div>
-                            <div class="course">
-                                <p class="name">Maths B</p>
-                            </div>
-                            <div class="course">
-                                <p class="name">German</p>
-                            </div>
-                            <div class="course">
-                                <p class="name">IPT</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-experiences">
-                    <img class="icon" alt="work-experience icon" src="utils/work-experience-icon.svg">
-                    <p class="title">Work Experience</p>
-                    <div class="work-experience">
-                        <div class="metadata">
-                            <p class="position">Store Associate</p>
-                            <a class="workplace" rel="prefetch" target="_blank" href="https://www.toysrus.com.au">Toys &quot;R&quot; Us</a>
-                            <p class="timeframe">2015 - 2018</p>
-                        </div>
-                        <div class="text">
-                            <ul>
-                                <li>Greeting Customers, responding to questions and providing outstanding customer services</li>
-                                <li>Development of high-level product knowledge of store merchandise</li>
-                                <li>Directing customers to merchandise and answering specific questions about merchandise</li>
-                                <li>Processing purchases and refunds through registers and balancing register drawers</li>
-                                <li>Maintaining store cleanliness and orderly appearance of merchandise throughout the sales floor and storeroom</li>
-                                <li>Setting up and demonstrating specials and promotions to customers at front of store</li>
-                                <li>Received 'Associate of the Quarter' for my work ethic and management skills on weekend shifts</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="work-experience">
-                        <div class="metadata">
-                            <p class="position">Store Associate</p>
-                            <a class="workplace" rel="prefetch" target="_blank" href="https://www.mrtoys.com.au">Mr Toy&apos;s: Toyworld</a>
-                            <p class="timeframe">2018 - 2020</p>
-                        </div>
-                        <div class="text">
-                            <ul>
-                                <li>Greeting customers, responding to questions and providing outstading customer services</li>
-                                <li>Development of high-level product knowledge of store merchandise</li>
-                                <li>Directing customers to merchandise and answering specific questions about merchandise</li>
-                                <li>Processing purchases and refunds through registers and balancing register drawers</li>
-                                <li>Maintaining store cleanliness and orderly appearance of merchandise throughout the sales floor and storeroom</li>
-                                <li>Co-ordination and management of truck deliveries</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="work-experience">
-                        <div class="metadata">
-                            <p class="position">Dispatch</p>
-                            <a class="workplace" rel="prefetch" target="_blank" href="https://www.marketdirect.com.au">Market Direct Campers</a>
-                            <p class="timeframe">2022 - Present</p>
-                        </div>
-                        <div class="text">
-                            <ul>
-                                <li>Utilise inventory management software to track large stock movements</li>
-                                <li>Utilise courier service management software to dispatch and track stock deliveries</li>
-                                <li>Manage deliveries of large amounts of stock overseas</li>
-                                <li>Manage deliveries of heavy stock items to commercial and non-commercial recipients</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="work-experience">
-                        <div class="metadata">
-                            <p class="position">Tutor</p>
-                            <p class="workplace">Private High School Tutoring</p>
-                            <p class="timeframe">2019 - Present</p>
-                        </div>
-                        <div class="text">
-                            <ul>
-                                <li>Physics</li>
-                                <li>Mathematics A</li>
-                                <li>Mathematics B</li>
-                                <li>Mathematics C</li>
-                                <li>Chemistry</li>
-                                <li>Essential Mathematics</li>
-                                <li>English OP</li>
-                                <li>English Non-OP</li>
-                            </ul>
-                        </div>
+
+                <div class="section">
+                    <div class="tool-group">
+                        <button class="btn active" data-tool="region" onclick="setTool('region')">
+                            &#9670; Paint Region
+                        </button>
+
+                        <button class="btn" data-tool="erase" onclick="setTool('erase')">
+                            &#9672; Erase Region
+                        </button>
+
+                        <button class="btn" data-tool="hole" onclick="setTool('hole')">
+                            &#9671; Paint Hole
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="skills">
-                <p class="title">Technologies</p>
-                <div class="skill">
-                    <img class="icon" src="utils/python-original.svg">
-                    <p class="name">Python</p>
+
+            <div class="main">
+                <div class="grid-container">
+                    <div class="grid" id="grid"></div>
                 </div>
-                <div class="skill">
-                    <img class="icon" src="utils/c-original.svg">
-                    <p class="name">C</p>
+            </div>
+
+            <div class="sidebar-right">
+                <div id="solutionBanner" class="solution-banner"></div>
+                <div class="status" id="status">
+                    Ready
                 </div>
-                <div class="skill">
-                    <img class="icon" src="utils/cplusplus-original.svg">
-                    <p class="name">C++</p>
+                <div class="section output-area">
+                    <div class="section-title">
+                        Puzzle String
+                    </div>
+                    <textarea id="puzzleStr" spellcheck="false" placeholder="Paste or export puzzle string..."></textarea>
                 </div>
-                <div class="skill">
-                    <img class="icon" src="utils/java-original.svg">
-                    <p class="name">Java</p>
+
+                <div class="section">
+                    <button class="btn primary" onclick="solveFromUI()">
+                        &#10003; Solve
+                    </button>
+                    <button class="btn" onclick="clearSolution()">
+                        &#10005; Clear Solution
+                    </button>
+                    <button class="btn" onclick="loadFromString()">
+                        &#8613; Import Puzzle
+                    </button>
+                    <button class="btn" onclick="exportToString()" style="margin-top:6px">
+                        &#8615; Export Puzzle
+                    </button>
                 </div>
-                <div class="skill">
-                    <img class="icon" src="utils/vuejs-original.svg">
-                    <p class="name">Vuejs</p>
-                </div>
-                <div class="skill">
-                    <img class="icon" src="utils/go-original.svg">
-                    <p class="name">GoLang</p>
-                </div>
-                <div class="skill">
-                    <img class="icon" src="utils/git-original.svg">
-                    <p class="name">Git</p>
-                </div>
-                <div class="skill">
-                    <img class="icon" src="utils/windows8-original.svg">
-                    <p class="name">Windows</p>
-                </div>
-                <div class="skill">
-                    <img class="icon" src="utils/linux-original.svg">
-                    <p class="name">GNU/Linux</p>
-                </div>
-                <div class="skill">
-                    <img class="icon" src="utils/openbsd.png">
-                    <p class="name">OpenBSD</p>
+
+                <div class="section">
+                    <div class="section-title">
+                        Domino Inventory
+                    </div>
+                    <div class="domino-list" id="dominoList"></div>
+                    <div class="domino-add">
+                        <input type="text" id="pipA" maxlength="1" placeholder="A">
+                        <input type="text" id="pipB" maxlength="1" placeholder="B">
+                        <button onclick="addDomino()">&plus;</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            const TOOL_REGION = 0, 
+                  TOOL_HOLE = 1, 
+                  TOOL_ERASE = 2;
+
+            const RULE_NONE = 0, 
+                  RULE_EQ = 1, 
+                  RULE_NEQ = 2, 
+                  RULE_GT = 3, 
+                  RULE_LT = 4, 
+                  RULE_SUM = 5;
+
+            const HPAINT_ADD = 0, 
+                  HPAINT_REMOVE = 1;
+
+            const RULE_STR_TO_INT = { 
+                'none': RULE_NONE, 
+                'eq': RULE_EQ, 
+                'neq': RULE_NEQ, 
+                'gt': RULE_GT, 
+                'lt': RULE_LT, 
+                'sum': RULE_SUM 
+            };
+
+            const RULE_INT_TO_STR = [
+                'none', 
+                'eq', 
+                'neq', 
+                'gt', 
+                'lt', 
+                'sum'
+            ];
+
+            const TOOL_STR_TO_INT = { 
+                'region': TOOL_REGION, 
+                'hole': TOOL_HOLE, 
+                'erase': TOOL_ERASE 
+            };
+
+            const REGION_COLORS = [
+                '#5B8DEF', 
+                '#E05555', 
+                '#4EC990', 
+                '#C678DD', 
+                '#E8A244',
+                '#56B6C2', 
+                '#D4793A', 
+                '#7C8CBF', 
+                '#E06C9F', 
+                '#98C379',
+                '#D19A66', 
+                '#61AFEF', 
+                '#BE5046', 
+                '#A9DC76', 
+                '#FC9867',
+                '#78DCE8', 
+                '#FF6188', 
+                '#A8CC8C', 
+                '#E1ACFF', 
+                '#FFD580',
+                '#88C0D0', 
+                '#BF616A', 
+                '#A3BE8C', 
+                '#B48EAD', 
+                '#EBCB8B',
+                '#D08770'
+            ];
+
+            const RULE_BADGE = [
+                null, 
+                '=', 
+                '≠', 
+                null, 
+                null, 
+                null
+            ];
+
+            let gridW = 5;
+            let gridH = 4;
+            let cells = [];
+            let regions = [];
+            let dominoes = [];
+            let activeTool = TOOL_REGION;
+            let activeRegion = 0;
+            let mouseDown = false;
+            let zoomLevel = 1.0;
+            let holePaintMode = -1;
+            let cellElements = [];
+            let dominoMap = [];
+            let badgesDirty = true;
+
+            const elGrid = document.getElementById('grid');
+            const elGridContainer = document.querySelector('.grid-container');
+            const elGridW = document.getElementById('gridW');
+            const elGridH = document.getElementById('gridH');
+            const elRegionList = document.getElementById('regionList');
+            const elRuleSection = document.getElementById('ruleSection');
+            const elRuleRegionLabel = document.getElementById('ruleRegionLabel');
+            const elRuleType = document.getElementById('ruleType');
+            const elRuleValue = document.getElementById('ruleValue');
+            const elRuleValueRow = document.getElementById('ruleValueRow');
+            const elPuzzleStr = document.getElementById('puzzleStr');
+            const elStatus = document.getElementById('status');
+            const elSolutionBanner = document.getElementById('solutionBanner');
+            const elDominoList = document.getElementById('dominoList');
+            const elPipA = document.getElementById('pipA');
+            const elPipB = document.getElementById('pipB');
+            const toolButtons = document.querySelectorAll('[data-tool]');
+
+            let paintQueue = new Set();
+            let isPaintingFrame = false;
+
+            function processPaintQueue() {
+                paintQueue.forEach(idx => paintCell(idx));
+                paintQueue.clear();
+                isPaintingFrame = false;
+            }
+
+            function queuePaint(idx) {
+                paintQueue.add(idx);
+                if (!isPaintingFrame) {
+                    isPaintingFrame = true;
+                    requestAnimationFrame(processPaintQueue);
+                }
+            }
+
+            elGrid.onmousedown = function(e) {
+                const cellDiv = e.target.closest('.cell');
+                if (!cellDiv) return;
+
+                mouseDown = true;
+                const idx = parseInt(cellDiv.dataset.idx);
+
+                if (activeTool === TOOL_HOLE) {
+                    holePaintMode = cells[idx].region === -1 ? HPAINT_REMOVE : HPAINT_ADD;
+                }
+
+                paintCell(idx);
+                e.preventDefault();
+            };
+
+            elGrid.onmouseover = function(e) {
+                if (!mouseDown) return;
+                const cellDiv = e.target.closest('.cell');
+                if (!cellDiv) return;
+                queuePaint(parseInt(cellDiv.dataset.idx));
+            };
+
+            window.onmouseup = function() {
+                mouseDown = false;
+                holePaintMode = -1;
+            };
+
+            document.querySelector('.main').addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const delta = e.deltaY > 0 ? -0.1 : 0.1;
+                zoomLevel = Math.min(3.0, Math.max(0.3, zoomLevel + delta));
+                elGridContainer.style.transform = `scale(${zoomLevel})`;
+            }, { passive: false });
+
+            let solverWorker = new Worker('worker.js');
+
+            solverWorker.onmessage = function(e) {
+                if (e.data.type === 'ready') {
+                    setStatus('Wasm loaded - ready');
+                } else if (e.data.type === 'result') {
+                    const raw = e.data.result;
+                    if (raw) {
+                        const sep = raw.indexOf('|');
+                        const values = sep >= 0 ? raw.substring(0, sep) : raw;
+                        const dmap = sep >= 0 ? raw.substring(sep + 1) : '';
+
+                        dominoMap = new Array(cells.length).fill(null);
+                        const len = Math.min(values.length, cells.length);
+
+                        for (let i = 0; i < len; i++) {
+                            const c = cells[i];
+                            if (c.region !== -1 && c.region !== null) {
+                                c.value = values.charCodeAt(i) - 48;
+                            }
+                            if (i < dmap.length && dmap.charCodeAt(i) !== 46) {
+                                dominoMap[i] = dmap.charCodeAt(i);
+                            }
+                        }
+
+                        renderGrid();
+                        showBanner('solved', 'Solution found!');
+                        setStatus('Solved');
+                    } else {
+                        showBanner('failed', 'No solution found.');
+                        setStatus('No solution');
+                    }
+                } else if (e.data.type === 'error') {
+                    showBanner('failed', 'Error: ' + e.data.error);
+                    setStatus('Error');
+                }
+            };
+
+            function init() {
+                rebuildGrid();
+            }
+
+            function initDOMGrid() {
+                elGrid.style.gridTemplateColumns = `repeat(${gridW}, 52px)`;
+                elGrid.innerHTML = '';
+                cellElements = new Array(gridW * gridH);
+
+                for (let i = 0; i < gridW * gridH; i++) {
+                    const div = document.createElement('div');
+                    div.className = 'cell';
+                    div.dataset.idx = i;
+                    elGrid.appendChild(div);
+                    cellElements[i] = div;
+                }
+            }
+
+            function rebuildGrid() {
+                gridW = parseInt(elGridW.value) || 5;
+                gridH = parseInt(elGridH.value) || 4;
+                const count = gridW * gridH;
+                cells = new Array(count);
+                dominoMap = new Array(count).fill(null);
+
+                for (let i = 0; i < count; i++)
+                    cells[i] = { region: null, value: null };
+
+                initDOMGrid();
+                renderGrid();
+                clearSolution();
+            }
+
+            function renderGrid() {
+                elGridContainer.style.transform = `scale(${zoomLevel})`;
+                for (let i = 0; i < cells.length; i++)
+                    updateCellDOM(i);
+
+                if (badgesDirty) {
+                    renderRegionBadges();
+                    badgesDirty = false;
+                }
+            }
+
+            function renderRegionBadges() {
+                const existing = elGridContainer.querySelectorAll('.region-badge');
+
+                for (let i = 0; i < existing.length; i++)
+                    existing[i].remove();
+
+                const seen = new Set();
+                for (let i = 0; i < cells.length; i++) {
+                    const regIdx = cells[i].region;
+                    if (regIdx === null || regIdx === -1 || seen.has(regIdx))
+                        continue;
+                    if (regIdx >= regions.length)
+                        continue;
+
+                    seen.add(regIdx);
+                    const reg = regions[regIdx];
+                    const ruleText = formatRuleBadge(reg);
+
+                    if (!ruleText)
+                        continue;
+
+                    const cellEl = cellElements[i];
+                    const badge = document.createElement('div');
+                    badge.className = 'region-badge';
+                    badge.style.background = reg.color;
+
+                    const span = document.createElement('span');
+                    span.textContent = ruleText;
+                    badge.appendChild(span);
+
+                    const cellLeft = cellEl.offsetLeft + elGrid.offsetLeft;
+                    const cellTop = cellEl.offsetTop + elGrid.offsetTop;
+                    badge.style.left = (cellLeft - 6) + 'px';
+                    badge.style.top = (cellTop + 34) + 'px';
+
+                    elGridContainer.appendChild(badge);
+                }
+            }
+
+            function formatRuleBadge(reg) {
+                const type = reg.rule.type;
+                if (type === RULE_NONE) return null;
+                if (type === RULE_EQ) return '=';
+                if (type === RULE_NEQ) return '≠';
+                if (type === RULE_GT) return '>' + (reg.rule.value ?? '');
+                if (type === RULE_LT) return '<' + (reg.rule.value ?? '');
+                if (type === RULE_SUM) return '' + (reg.rule.value ?? '');
+                return null;
+            }
+
+            function updateCellDOM(idx) {
+                const cell = cells[idx];
+                const div = cellElements[idx];
+                const r = (idx / gridW) | 0;
+                const c = idx % gridW;
+                const reg = cell.region;
+
+                let cls = 'cell';
+                let bg = '', blc = '', brc = '', btc = '', bbc = '';
+
+                if (reg === -1) {
+                    cls += ' hole';
+                } else if (reg !== null && reg < regions.length) {
+                    const region = regions[reg];
+                    bg = region.colorBg;
+
+                    if (c > 0 && cells[idx - 1].region === reg) cls += ' no-border-left';
+                    else blc = region.color;
+
+                    if (c < gridW - 1 && cells[idx + 1].region === reg) cls += ' no-border-right';
+                    else brc = region.color;
+
+                    if (r > 0 && cells[idx - gridW].region === reg) cls += ' no-border-top';
+                    else btc = region.color;
+
+                    if (r < gridH - 1 && cells[idx + gridW].region === reg) cls += ' no-border-bottom';
+                    else bbc = region.color;
+                }
+
+                const dm = dominoMap[idx];
+
+                if (dm) {
+                    if (c > 0 && dominoMap[idx - 1]) {
+                        cls += dominoMap[idx - 1] === dm ? ' domino-join-left' : ' domino-edge-left';
+                    }
+                    if (c < gridW - 1 && dominoMap[idx + 1]) {
+                        cls += dominoMap[idx + 1] === dm ? ' domino-join-right' : ' domino-edge-right';
+                    }
+                    if (r > 0 && dominoMap[idx - gridW]) {
+                        cls += dominoMap[idx - gridW] === dm ? ' domino-join-top' : ' domino-edge-top';
+                    }
+                    if (r < gridH - 1 && dominoMap[idx + gridW]) {
+                        cls += dominoMap[idx + gridW] === dm ? ' domino-join-bottom' : ' domino-edge-bottom';
+                    }
+                }
+
+                if (cell.value !== null) {
+                    cls += ' solved';
+                }
+
+                if (div.className !== cls) 
+                    div.className = cls;
+
+                const s = div.style;
+                if (s.background !== bg) s.background = bg;
+                if (s.borderLeftColor !== blc) s.borderLeftColor = blc;
+                if (s.borderRightColor !== brc) s.borderRightColor = brc;
+                if (s.borderTopColor !== btc) s.borderTopColor = btc;
+                if (s.borderBottomColor !== bbc) s.borderBottomColor = bbc;
+
+                if (cell.value !== null) {
+                    const valStr = '' + cell.value;
+                    if (div.textContent !== valStr) div.textContent = valStr;
+                } else {
+                    if (div.textContent !== '') div.textContent = '';
+                }
+            }
+
+            function paintCell(idx) {
+                let changed = false;
+
+                if (activeTool === TOOL_REGION) {
+                    if (activeRegion < regions.length && cells[idx].region !== activeRegion) {
+                        cells[idx].region = activeRegion;
+                        cells[idx].value = null;
+                        changed = true;
+                    }
+                } else if (activeTool === TOOL_HOLE) {
+                    if (holePaintMode === HPAINT_ADD && cells[idx].region !== -1) {
+                        cells[idx].region = -1;
+                        cells[idx].value = null;
+                        changed = true;
+                    } else if (holePaintMode === HPAINT_REMOVE && cells[idx].region === -1) {
+                        cells[idx].region = null;
+                        cells[idx].value = null;
+                        changed = true;
+                    }
+                } else if (activeTool === TOOL_ERASE && cells[idx].region !== null) {
+                    cells[idx].region = null;
+                    cells[idx].value = null;
+                    changed = true;
+                }
+
+                if (changed) {
+                    updateCellDOM(idx);
+
+                    if (idx % gridW > 0)
+                        updateCellDOM(idx - 1);
+                    if (idx % gridW < gridW - 1)
+                        updateCellDOM(idx + 1);
+                    if (idx >= gridW)
+                        updateCellDOM(idx - gridW);
+                    if (idx < cells.length - gridW)
+                        updateCellDOM(idx + gridW);
+
+                    badgesDirty = true;
+                }
+            }
+
+            function setTool(toolStr) {
+                activeTool = TOOL_STR_TO_INT[toolStr] ?? TOOL_REGION;
+                for (let i = 0; i < toolButtons.length; i++) {
+                    const b = toolButtons[i];
+                    b.classList.toggle('active', b.dataset.tool === toolStr);
+                }
+            }
+
+            function addRegion() {
+                const idx = regions.length;
+                const color = REGION_COLORS[idx % REGION_COLORS.length];
+
+                regions.push({
+                    letter: String.fromCharCode(65 + idx),
+                    color: color,
+                    colorBg: color + '22',
+                    rule: { type: RULE_NONE, value: null }
+                });
+
+                activeRegion = idx;
+                renderRegions();
+                badgesDirty = true;
+            }
+
+            function removeRegion(idx) {
+                for (let i = 0; i < cells.length; i++) {
+                    const c = cells[i];
+                    if (c.region === idx) c.region = null;
+                    else if (c.region !== null && c.region !== -1 && c.region > idx) c.region--;
+                }
+
+                regions.splice(idx, 1);
+                for (let i = 0; i < regions.length; i++)
+                    regions[i].letter = String.fromCharCode(65 + i);
+
+                if (activeRegion >= regions.length)
+                    activeRegion = Math.max(0, regions.length - 1);
+
+                renderRegions();
+                badgesDirty = true;
+                renderGrid();
+            }
+
+            function renderRegions() {
+                elRegionList.innerHTML = '';
+
+                for (let i = 0; i < regions.length; i++) {
+                    const reg = regions[i];
+                    const div = document.createElement('div');
+
+                    div.className = 'region-item' + (i === activeRegion ? ' active' : '');
+                    div.innerHTML = `
+                        <div class="region-swatch" style="background:${reg.color}"></div>
+                        <span>${reg.letter}</span>
+                        <span class="region-rule">${formatRule(reg.rule)}</span>
+                        <button class="region-delete" title="Remove region">&times;</button>
+                    `;
+
+                    const regIdx = i;
+                    div.querySelector('.region-delete').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        removeRegion(regIdx);
+                    });
+
+                    div.addEventListener('click', () => {
+                        activeRegion = regIdx;
+                        activeTool = TOOL_REGION;
+                        for (let j = 0; j < toolButtons.length; j++)
+                            toolButtons[j].classList.toggle('active', toolButtons[j].dataset.tool === 'region');
+                        renderRegions();
+                        showRuleEditor(regIdx);
+                    });
+
+                    elRegionList.appendChild(div);
+                }
+
+                showRuleEditor(activeRegion);
+            }
+
+            function formatRule(rule) {
+                switch (rule.type) {
+                    case RULE_EQ:  return '&equals;';
+                    case RULE_NEQ: return '&ne;';
+                    case RULE_GT:  return '&gt;' + (rule.value ?? '?');
+                    case RULE_LT:  return '&lt;' + (rule.value ?? '?');
+                    case RULE_SUM: return '&sum;' + (rule.value ?? '?');
+                    default:       return '--';
+                }
+            }
+
+            function showRuleEditor(idx) {
+                if (idx < 0 || idx >= regions.length) {
+                    elRuleSection.style.display = 'none';
+                    return;
+                }
+
+                elRuleSection.style.display = '';
+                elRuleRegionLabel.textContent = regions[idx].letter;
+                const rule = regions[idx].rule;
+                elRuleType.value = RULE_INT_TO_STR[rule.type] || 'none';
+                elRuleValue.value = rule.value ?? '';
+                updateRuleUI();
+            }
+
+            function updateRuleUI() {
+                const type = RULE_STR_TO_INT[elRuleType.value] ?? RULE_NONE;
+                elRuleValueRow.style.display = (type >= RULE_GT) ? '' : 'none';
+            }
+
+            function applyRule() {
+                const type = RULE_STR_TO_INT[elRuleType.value] ?? RULE_NONE;
+                const val = parseInt(elRuleValue.value);
+
+                regions[activeRegion].rule = {
+                    type,
+                    value: type >= RULE_GT ? (isNaN(val) ? 0 : val) : null
+                };
+
+                renderRegions();
+                badgesDirty = true;
+                renderRegionBadges();
+                badgesDirty = false;
+            }
+
+            function addDomino() {
+                const a = parseInt(elPipA.value);
+                const b = parseInt(elPipB.value);
+
+                if (isNaN(a) || isNaN(b) || a < 0 || a > 6 || b < 0 || b > 6)
+                    return;
+
+                dominoes.push({ a, b });
+                elPipA.value = '';
+                elPipB.value = '';
+                renderDominoes();
+            }
+
+            function renderDominoes() {
+                elDominoList.innerHTML = '';
+                for (let i = 0; i < dominoes.length; i++) {
+                    const d = dominoes[i];
+                    const chip = document.createElement('div');
+                    chip.className = 'domino-chip';
+                    chip.innerHTML = `<span class="pip">${d.a}</span><span class="pip">${d.b}</span>`;
+                    chip.title = 'Click to remove';
+                    const di = i;
+                    chip.addEventListener('click', () => { dominoes.splice(di, 1); renderDominoes(); });
+                    elDominoList.appendChild(chip);
+                }
+            }
+
+            const RULE_EXPORT = [' ', '=', '!=', '>', '<', ''];
+
+            function exportToString() {
+                let regionMap = '';
+                for (let i = 0; i < cells.length; i++) {
+                    const reg = cells[i].region;
+                    regionMap += (reg === -1 || reg === null) ? '0' : regions[reg].letter;
+                }
+
+                let domStr = '';
+                for (let i = 0; i < dominoes.length; i++) {
+                    if (i > 0) domStr += ',';
+                    domStr += '' + dominoes[i].a + dominoes[i].b;
+                }
+
+                const usedRegions = new Set();
+                for (let i = 0; i < cells.length; i++) {
+                    const r = cells[i].region;
+                    if (r !== null && r !== -1) usedRegions.add(r);
+                }
+
+                const sortedUsed = [...usedRegions].sort((a, b) => a - b);
+                let ruleStr = '';
+                for (let i = 0; i < sortedUsed.length; i++) {
+                    if (i > 0) ruleStr += ',';
+                    const reg = regions[sortedUsed[i]];
+                    const r = reg.rule;
+                    let val = RULE_EXPORT[r.type];
+                    if (r.type >= RULE_GT) val += r.value;
+                    ruleStr += reg.letter + ':' + val;
+                }
+
+                elPuzzleStr.value = `${gridW}x${gridH}|${domStr}|${regionMap}|${ruleStr}`;
+            }
+
+            function loadFromString() {
+                const str = elPuzzleStr.value.replace(/^\s+/, '').replace(/[\r\n]+$/, '');
+                if (!str) return;
+
+                try {
+                    parsePuzzleString(str);
+                    renderGrid();
+                    renderRegions();
+                    renderDominoes();
+                    badgesDirty = true;
+                    renderRegionBadges();
+                    badgesDirty = false;
+                    setStatus('Puzzle imported');
+                } catch (e) {
+                    setStatus('Parse error: ' + e.message);
+                }
+            }
+
+            function parsePuzzleString(str) {
+                const parts = str.split('|');
+                const [w, h] = parts[0].split('x').map(Number);
+
+                gridW = w;
+                gridH = h;
+                elGridW.value = w;
+                elGridH.value = h;
+                dominoes = [];
+
+                if (parts[1]) {
+                    const pairs = parts[1].split(',');
+                    for (let i = 0; i < pairs.length; i++) {
+                        const pair = pairs[i];
+                        if (pair.length >= 2)
+                            dominoes.push({ a: pair.charCodeAt(0) - 48, b: pair.charCodeAt(1) - 48 });
+                    }
+                }
+
+                regions = [];
+                const regionMap = parts[2] || '';
+                const letterToIdx = {};
+                const count = w * h;
+                cells = new Array(count);
+
+                for (let i = 0; i < count; i++) {
+                    const ch = i < regionMap.length ? regionMap[i] : '0';
+                    if (ch === '0') {
+                        cells[i] = { region: -1, value: null };
+                    } else {
+                        if (!(ch in letterToIdx)) {
+                            letterToIdx[ch] = regions.length;
+                            const color = REGION_COLORS[regions.length % REGION_COLORS.length];
+                            regions.push({
+                                letter: ch,
+                                color: color,
+                                colorBg: color + '22',
+                                rule: { type: RULE_NONE, value: null }
+                            });
+                        }
+                        cells[i] = { region: letterToIdx[ch], value: null };
+                    }
+                }
+
+                if (parts[3]) {
+                    const segs = parts[3].split(',');
+                    for (let i = 0; i < segs.length; i++) {
+                        const seg = segs[i];
+                        const letter = seg[0];
+                        const rs = seg.substring(2);
+                        const idx = letterToIdx[letter];
+
+                        if (idx === undefined) continue;
+
+                        if (rs === '=') 
+                            regions[idx].rule = { type: RULE_EQ, value: null };
+                        else if (rs === '!=') 
+                            regions[idx].rule = { type: RULE_NEQ, value: null };
+                        else if (rs.charCodeAt(0) === 62) 
+                            regions[idx].rule = { type: RULE_GT, value: parseInt(rs.substring(1)) };
+                        else if (rs.charCodeAt(0) === 60) 
+                            regions[idx].rule = { type: RULE_LT, value: parseInt(rs.substring(1)) };
+                        else if (rs === ' ') 
+                            regions[idx].rule = { type: RULE_NONE, value: null };
+                        else 
+                            regions[idx].rule = { type: RULE_SUM, value: parseInt(rs) };
+                    }
+                }
+
+                dominoMap = new Array(count).fill(null);
+                initDOMGrid();
+                activeRegion = 0;
+            }
+
+            function solveFromUI() {
+                exportToString();
+                const str = elPuzzleStr.value.replace(/^\s+/, '').replace(/[\r\n]+$/, '');
+                if (!str) return;
+
+                clearSolution();
+                setStatus('Solving...');
+                solverWorker.postMessage({ type: 'solve', str: str });
+            }
+
+            function clearSolution() {
+                for (let i = 0; i < cells.length; i++)
+                    cells[i].value = null;
+                dominoMap = new Array(cells.length).fill(null);
+                renderGrid();
+                hideBanner();
+            }
+
+            function showBanner(cls, msg) {
+                elSolutionBanner.className = 'solution-banner ' + cls;
+                elSolutionBanner.textContent = msg;
+            }
+
+            function hideBanner() {
+                elSolutionBanner.className = 'solution-banner';
+            }
+
+            function setStatus(msg) {
+                elStatus.textContent = msg;
+            }
+
+            init();
+        </script>
     </body>
 </html>
