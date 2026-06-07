@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pips Solver</title>
+        <title>DLX Solvers</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,40 +22,9 @@
                 --hole: #0A0A0C;
                 --green: #4EC990;
                 --red: #E05555;
-                --region-colors:
-                    #5B8DEF, 
-                    #E05555, 
-                    #4EC990, 
-                    #C678DD, 
-                    #E8A244,
-                    #56B6C2, 
-                    #D4793A, 
-                    #7C8CBF, 
-                    #E06C9F, 
-                    #98C379,
-                    #D19A66, 
-                    #61AFEF, 
-                    #BE5046, 
-                    #A9DC76, 
-                    #FC9867,
-                    #78DCE8, 
-                    #FF6188, 
-                    #A8CC8C, 
-                    #E1ACFF, 
-                    #FFD580,
-                    #88C0D0, 
-                    #BF616A, 
-                    #A3BE8C, 
-                    #B48EAD, 
-                    #EBCB8B,
-                    #D08770;
             }
 
-            * { 
-                margin: 0; 
-                padding: 0; 
-                box-sizing: border-box; 
-            }
+            * { margin: 0; padding: 0; box-sizing: border-box; }
 
             body {
                 background: var(--bg);
@@ -80,20 +49,91 @@
                 align-items: center;
                 justify-content: space-between;
                 padding: 0 20px;
+                gap: 16px;
+                z-index: 200;
+                position: relative;
             }
 
-            header h1 {
+            .header-left {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+
+            .header-nav {
+                display: flex;
+                align-items: center;
+                gap: 2px;
+            }
+
+            .nav-link {
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 18px;
-                font-weight: 700;
-                letter-spacing: 2px;
-                color: var(--accent);
-            }
-
-            header .subtitle {
-                font-size: 12px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 1px;
+                text-transform: uppercase;
                 color: var(--text2);
+                text-decoration: none;
+                padding: 6px 14px;
+                border-radius: 5px;
+                transition: all 0.15s;
+                cursor: pointer;
+                border: 1px solid transparent;
+                background: transparent;
+            }
+
+            .nav-link:hover { 
+                color: var(--text); 
+                background: var(--surface2); 
+            }
+
+            .nav-link.active {
+                color: var(--accent);
+                background: var(--surface2);
+                border-color: var(--border);
+            }
+
+            .nav-sep {
+                width: 1px;
+                height: 20px;
+                background: var(--border);
+                margin: 0 6px;
+            }
+
+            .header-badge {
                 font-family: 'JetBrains Mono', monospace;
+                font-size: 9px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                color: var(--text2);
+                border: 1px solid var(--border);
+                padding: 2px 6px;
+                border-radius: 3px;
+            }
+
+            .sidebar-toggle {
+                display: none;
+                background: transparent;
+                border: 1px solid var(--border);
+                color: var(--text2);
+                font-size: 18px;
+                width: 36px;
+                height: 36px;
+                border-radius: 6px;
+                cursor: pointer;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.15s;
+                flex-shrink: 0;
+            }
+
+            .sidebar-toggle:hover { 
+                border-color: var(--accent); 
+                color: var(--accent); 
+            }
+
+            .sidebar-overlay { 
+                display: none; 
             }
 
             .sidebar-left {
@@ -204,6 +244,62 @@
                 border-color: var(--accent2); 
             }
 
+            .status {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 11px;
+                color: var(--text2);
+                padding: 6px 0;
+            }
+
+            .solution-banner {
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 12px;
+                margin-bottom: 12px;
+                display: none;
+            }
+
+            .solution-banner.solved { 
+                display: block; 
+                background: #1A2E1A; 
+                border: 1px solid var(--green); 
+                color: var(--green); 
+            }
+
+            .solution-banner.failed { 
+                display: block; 
+                background: #2E1A1A; 
+                border: 1px solid var(--red); 
+                color: var(--red); 
+            }
+
+            .output-area { 
+                margin-top: 12px; 
+                width: 100%; 
+            }
+
+            .output-area textarea {
+                width: 100%;
+                height: 80px;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                color: var(--green);
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 12px;
+                padding: 8px;
+                border-radius: 6px;
+                resize: vertical;
+            }
+
+            .solver-view { 
+                display: none; 
+            }
+
+            .solver-view.active { 
+                display: contents; 
+            }
+
             .tool-group { 
                 display: flex; 
                 flex-direction: column; 
@@ -211,14 +307,14 @@
             }
 
             .region-item {
-                display: flex;
-                align-items: center;
+                display: flex; 
+                align-items: center; 
                 gap: 8px;
-                padding: 6px 8px;
-                border-radius: 4px;
+                padding: 6px 8px; 
+                border-radius: 4px; 
                 font-size: 13px;
-                cursor: pointer;
-                border: 1px solid transparent;
+                cursor: pointer; 
+                border: 1px solid transparent; 
                 transition: all 0.12s;
             }
 
@@ -231,32 +327,32 @@
                 background: var(--surface2); 
             }
 
-            .region-swatch {
+            .region-swatch { 
                 width: 14px; 
-                height: 14px;
-                border-radius: 3px;
-                flex-shrink: 0;
+                height: 14px; 
+                border-radius: 3px; 
+                flex-shrink: 0; 
             }
 
-            .region-rule {
-                margin-left: auto;
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 11px;
-                color: var(--text2);
+            .region-rule { 
+                margin-left: auto; 
+                font-family: 'JetBrains Mono', monospace; 
+                font-size: 11px; 
+                color: var(--text2); 
             }
 
             .region-delete {
                 width: 18px; 
-                height: 18px;
+                height: 18px; 
                 border: none; 
                 background: transparent;
                 color: var(--text2); 
-                font-size: 14px;
+                font-size: 14px; 
                 cursor: pointer; 
                 border-radius: 3px;
                 display: flex; 
                 align-items: center; 
-                justify-content: center;
+                justify-content: center; 
                 flex-shrink: 0; 
                 line-height: 1;
             }
@@ -266,38 +362,38 @@
                 background: var(--surface); 
             }
 
-            .grid-container { 
+            .grid-container {
                 position: relative; 
-                transform-origin: center center; 
+                transform-origin: center center;
                 transition: transform 0.1s ease-out; 
-                will-change: transform;
+                will-change: transform; 
                 overflow: visible;
             }
 
             .grid {
-                display: inline-grid;
+                display: inline-grid; 
                 gap: 0;
-                border: 2px solid var(--border);
-                border-radius: 4px;
+                border: 2px solid var(--border); 
+                border-radius: 4px; 
                 overflow: hidden;
             }
 
             .cell {
                 width: 52px; 
-                height: 52px;
+                height: 52px; 
                 background: var(--surface2);
                 border: 1px solid var(--border);
-                display: flex;
-                align-items: center;
+                display: flex; 
+                align-items: center; 
                 justify-content: center;
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 20px;
+                font-family: 'JetBrains Mono', monospace; 
+                font-size: 20px; 
                 font-weight: 700;
-                color: var(--text);
-                cursor: pointer;
-                user-select: none;
+                color: var(--text); 
+                cursor: pointer; 
+                user-select: none; 
                 position: relative;
-                transition: filter 0.1s;
+                transition: filter 0.1s; 
                 will-change: background-color, border-color;
             }
 
@@ -305,13 +401,13 @@
                 filter: brightness(1.2); 
             }
 
-            .cell.solved:hover {
-                filter: none;
+            .cell.solved:hover { 
+                filter: none; 
             }
 
-            .cell.hole {
-                background: var(--hole);
-                color: #333;
+            .cell.hole { 
+                background: var(--hole); 
+                color: #333; 
             }
 
             .cell.solved { 
@@ -334,23 +430,23 @@
                 border-right-color: transparent; 
             }
 
-            .domino-list {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 4px;
+            .domino-list { 
+                display: flex; 
+                flex-wrap: wrap; 
+                gap: 4px; 
             }
 
             .domino-chip {
-                display: flex;
-                align-items: center;
-                gap: 2px;
+                display: flex; 
+                align-items: center; 
+                gap: 2px; 
                 padding: 3px 6px;
-                background: var(--surface2);
+                background: var(--surface2); 
                 border: 1px solid var(--border);
-                border-radius: 4px;
-                font-family: 'JetBrains Mono', monospace;
+                border-radius: 4px; 
+                font-family: 'JetBrains Mono', monospace; 
                 font-size: 12px;
-                cursor: pointer;
+                cursor: pointer; 
                 transition: all 0.12s;
             }
 
@@ -360,176 +456,248 @@
 
             .domino-chip .pip {
                 width: 16px; 
-                height: 16px;
-                border-radius: 3px;
+                height: 16px; 
+                border-radius: 3px; 
                 background: var(--accent);
-                display: flex;
-                align-items: center;
+                display: flex; 
+                align-items: center; 
                 justify-content: center;
-                font-size: 11px;
-                font-weight: 700;
+                font-size: 11px; 
+                font-weight: 700; 
                 color: var(--bg);
             }
 
-            .domino-add {
-                display: flex;
-                gap: 6px;
-                align-items: center;
-                margin-top: 8px;
+            .domino-add { 
+                display: flex; 
+                gap: 6px; 
+                align-items: center; 
+                margin-top: 8px; 
             }
 
             .domino-add input {
-                width: 36px;
-                background: var(--surface2);
+                width: 36px; 
+                background: var(--surface2); 
                 border: 1px solid var(--border);
-                color: var(--text);
-                padding: 4px;
-                border-radius: 4px;
+                color: var(--text); 
+                padding: 4px; 
+                border-radius: 4px; 
                 text-align: center;
-                font-family: 'JetBrains Mono', monospace;
+                font-family: 'JetBrains Mono', monospace; 
                 font-size: 13px;
             }
 
             .domino-add button {
-                padding: 4px 10px;
-                background: var(--accent);
-                border: none;
+                padding: 4px 10px; 
+                background: var(--accent); 
+                border: none; 
                 border-radius: 4px;
-                color: var(--bg);
-                font-weight: 600;
-                font-size: 12px;
+                color: var(--bg); 
+                font-weight: 600; 
+                font-size: 12px; 
                 cursor: pointer;
             }
 
             .rule-editor {
-                margin-top: 8px;
-                padding: 10px;
+                margin-top: 8px; 
+                padding: 10px; 
                 background: var(--surface2);
-                border-radius: 6px;
+                border-radius: 6px; 
                 border: 1px solid var(--border);
             }
 
-            .rule-editor label {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                font-size: 13px;
-                margin-bottom: 6px;
+            .rule-editor label { 
+                display: flex; 
+                align-items: center; 
+                gap: 8px; 
+                font-size: 13px; 
+                margin-bottom: 6px; 
             }
 
             .rule-editor select, 
             .rule-editor input {
-                background: var(--bg);
-                border: 1px solid var(--border);
+                background: var(--bg); 
+                border: 1px solid var(--border); 
                 color: var(--text);
-                padding: 4px 6px;
-                border-radius: 4px;
-                font-family: 'JetBrains Mono', monospace;
+                padding: 4px 6px; 
+                border-radius: 4px; 
+                font-family: 'JetBrains Mono', monospace; 
                 font-size: 12px;
             }
 
-            .output-area {
-                margin-top: 12px;
-                width: 100%;
-            }
-
-            .output-area textarea {
-                width: 100%;
-                height: 80px;
-                background: var(--bg);
-                border: 1px solid var(--border);
-                color: var(--green);
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 12px;
-                padding: 8px;
-                border-radius: 6px;
-                resize: vertical;
-            }
-
-            .status {
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 11px;
-                color: var(--text2);
-                padding: 6px 0;
-            }
-
-            .solution-banner {
-                padding: 8px 12px;
-                border-radius: 6px;
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 12px;
-                margin-bottom: 12px;
-                display: none;
-            }
-
-            .solution-banner.solved {
-                display: block;
-                background: #1a2e1a;
-                border: 1px solid var(--green);
-                color: var(--green);
-            }
-
-            .solution-banner.failed {
-                display: block;
-                background: #2e1a1a;
-                border: 1px solid var(--red);
-                color: var(--red);
-            }
-
-            .cell.domino-edge-right  { 
+            .cell.domino-edge-right { 
                 border-right: 1px dotted rgba(255,255,255,0.85) !important; 
             }
 
-            .cell.domino-edge-left   {
+            .cell.domino-edge-left { 
                 border-left: 1px dotted rgba(255,255,255,0.85) !important; 
             }
 
-            .cell.domino-edge-top    {
+            .cell.domino-edge-top { 
                 border-top: 1px dotted rgba(255,255,255,0.85) !important; 
             }
 
-            .cell.domino-edge-bottom {
+            .cell.domino-edge-bottom { 
                 border-bottom: 1px dotted rgba(255,255,255,0.85) !important; 
             }
 
-            .cell.domino-join-right  {
+            .cell.domino-join-right { 
                 border-right-color: transparent !important; 
             }
 
-            .cell.domino-join-left   {
+            .cell.domino-join-left { 
                 border-left-color: transparent !important; 
             }
 
-            .cell.domino-join-top    {
+            .cell.domino-join-top { 
                 border-top-color: transparent !important; 
             }
 
-            .cell.domino-join-bottom {
+            .cell.domino-join-bottom { 
                 border-bottom-color: transparent !important; 
             }
 
             .region-badge {
-                position: absolute;
-                z-index: 10;
-                width: 24px;
+                position: absolute; 
+                z-index: 10; 
+                width: 24px; 
                 height: 24px;
-                transform: rotate(45deg);
+                transform: rotate(45deg); 
                 border-radius: 4px;
-                display: flex;
-                align-items: center;
+                display: flex; 
+                align-items: center; 
                 justify-content: center;
-                pointer-events: none;
+                pointer-events: none; 
                 box-shadow: 0 1px 6px rgba(0,0,0,0.6);
             }
+
             .region-badge span {
-                transform: rotate(-45deg);
+                transform: rotate(-45deg); 
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 9px;
-                font-weight: 700;
-                color: #fff;
+                font-size: 9px; 
+                font-weight: 700; 
+                color: #FFF; 
                 line-height: 1;
-                white-space: nowrap;
+                white-space: nowrap; 
                 text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            }
+
+            .sud-grid {
+                display: inline-grid;
+                grid-template-columns: repeat(9, 52px);
+                gap: 0;
+                border: 3px solid var(--text2);
+                border-radius: 4px;
+            }
+
+            .sud-cell {
+                width: 52px; 
+                height: 52px; 
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                display: flex; 
+                align-items: center; 
+                justify-content: center;
+                font-family: 'JetBrains Mono', monospace; 
+                font-size: 22px; 
+                font-weight: 700;
+                color: var(--text); 
+                cursor: pointer; 
+                user-select: none;
+                position: relative; 
+                transition: background 0.1s;
+            }
+
+            .sud-cell:hover { 
+                filter: brightness(1.2); 
+            }
+
+            .sud-cell.selected { 
+                background: var(--accent) !important; 
+                color: var(--bg) !important; 
+            }
+
+            .sud-cell.given { 
+                color: var(--text); 
+            }
+
+            .sud-cell.solved-val { 
+                color: var(--green); 
+            }
+
+            .sud-cell:nth-child(3n) { 
+                border-right: 2px solid var(--text2); 
+            }
+
+            .sud-cell:nth-child(9n) { 
+                border-right: none; 
+            }
+
+            .sud-cell:nth-child(n+19):nth-child(-n+27) { 
+                border-bottom: 2px solid var(--text2); 
+            }
+
+            .sud-cell:nth-child(n+46):nth-child(-n+54) { 
+                border-bottom: 2px solid var(--text2); 
+            }
+
+            .sud-numpad { 
+                display: grid; 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 4px; 
+            }
+
+            .sud-numpad button {
+                padding: 10px; 
+                background: var(--surface2); 
+                border: 1px solid var(--border);
+                border-radius: 6px; 
+                color: var(--text); 
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 18px; 
+                font-weight: 700; 
+                cursor: pointer; 
+                transition: all 0.12s;
+            }
+
+            .sud-numpad button:hover { 
+                border-color: var(--accent); 
+                color: var(--accent); 
+            }
+
+            .sud-presets { 
+                display: flex; 
+                flex-direction: column; 
+                gap: 4px; 
+            }
+
+            .sud-presets button {
+                text-align: left; 
+                padding: 8px 10px; 
+                background: var(--surface2);
+                border: 1px solid var(--border); 
+                border-radius: 6px; 
+                color: var(--text);
+                font-size: 12px; 
+                font-family: 'DM Sans', sans-serif;
+                cursor: pointer; 
+                transition: all 0.12s;
+            }
+
+            .sud-presets button:hover { 
+                border-color: var(--accent); 
+                color: var(--accent); 
+            }
+
+            .sud-presets button .preset-label { 
+                font-weight: 600; 
+                display: block; 
+                margin-bottom: 2px; 
+            }
+
+            .sud-presets button .preset-diff { 
+                font-family: 'JetBrains Mono', monospace; 
+                font-size: 10px; 
+                color: var(--text2); 
             }
 
             ::-webkit-scrollbar { 
@@ -544,258 +712,522 @@
                 background: var(--border); 
                 border-radius: 3px; 
             }
+
+            @media (max-width: 960px) {
+                .app { 
+                    grid-template-columns: 1fr; 
+                }
+
+                .sidebar-toggle { 
+                    display: flex; 
+                }
+
+                .sidebar-left, 
+                .sidebar-right {
+                    position: fixed; 
+                    top: 56px; 
+                    bottom: 0; 
+                    width: 290px;
+                    z-index: 100; 
+                    transition: transform 0.2s ease;
+                }
+
+                .sidebar-left { 
+                    left: 0; 
+                    border-right: 1px solid var(--border); 
+                    transform: translateX(-100%); 
+                }
+
+                .sidebar-right { 
+                    right: 0; 
+                    left: auto; 
+                    border-left: 1px solid var(--border); 
+                    transform: translateX(100%); 
+                }
+
+                .sidebar-left.open { 
+                    transform: translateX(0); 
+                }
+
+                .sidebar-right.open { 
+                    transform: translateX(0); 
+                }
+
+                .sidebar-overlay {
+                    display: none; 
+                    position: fixed; 
+                    top: 56px; 
+                    left: 0; 
+                    right: 0; 
+                    bottom: 0;
+                    background: rgba(0,0,0,0.5); 
+                    z-index: 99;
+                }
+
+                .sidebar-overlay.visible { 
+                    display: block; 
+                }
+
+                .header-badge { 
+                    display: none; 
+                }
+            }
+
+            @media (max-width: 500px) {
+                .sidebar-left, 
+                .sidebar-right { 
+                    width: 100%; 
+                }
+
+                .cell, 
+                .sud-cell { 
+                    width: 36px;
+                    height: 36px; 
+                    font-size: 14px; 
+                }
+
+                .sud-grid { 
+                    grid-template-columns: repeat(9, 36px); 
+                }
+
+                .nav-link { 
+                    font-size: 11px; 
+                    padding: 5px 8px; 
+                }
+            }
         </style>
     </head>
 
     <body>
         <div class="app">
             <header>
-                <h1>
-                    PIPS
-                </h1>
+                <div class="header-left">
+                    <button class="sidebar-toggle" id="toggleLeft" title="Toggle left panel">&#9776;</button>
+                    <nav class="header-nav">
+                        <a class="nav-link active" data-view="pips" href="#pips">Pips</a>
+                        <div class="nav-sep"></div>
+                        <a class="nav-link" data-view="sudoku" href="#sudoku">Sudoku</a>
+                    </nav>
+                </div>
+                <div class="header-left">
+                    <span class="header-badge">DLX</span>
+                    <button class="sidebar-toggle" id="toggleRight" title="Toggle right panel">&#9881;</button>
+                </div>
             </header>
 
-            <div class="sidebar-left">
-                <div class="section">
-                    <div class="section-title">
-                        Grid
-                    </div>
-                    <label class="field">
-                        Width
-                        <input type="number" id="gridW" value="5" min="2" max="20">
-                    </label>
-                    <label class="field">
-                        Height 
-                        <input type="number" id="gridH" value="4" min="2" max="20">
-                    </label>
-                    <button class="btn primary" onclick="rebuildGrid()">
-                        &#8634; Rebuild Grid
-                    </button>
-                </div>
+            <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-                <div class="section">
-                    <div class="section-title">
-                        Regions
-                    </div>
+            <div class="solver-view active" id="view-pips">
+                <div class="sidebar-left">
+                    <div class="section">
+                        <div class="section-title">
+                            Grid
+                        </div>
 
-                    <div id="regionList"></div>
-
-                    <button class="btn" onclick="addRegion()" style="margin-top: 8px">
-                        &plus; New Region
-                    </button>
-                </div>
-
-                <div class="section" id="ruleSection" style="display:none">
-                    <div class="section-title">
-                        Rule for Region 
-                        <span id="ruleRegionLabel"></span>
-                    </div>
-                    <div class="rule-editor">
-                        <label>
-                            Type
-                            <select id="ruleType" onchange="updateRuleUI()">
-                                <option value="none">None</option>
-                                <option value="eq">Equal (=)</option>
-                                <option value="neq">Not Equal (!=)</option>
-                                <option value="gt">Sum &gt; N</option>
-                                <option value="lt">Sum &lt; N</option>
-                                <option value="sum">Sum = N</option>
-                            </select>
+                        <label class="field">
+                            Width 
+                            <input type="number" id="gridW" value="5" min="2" max="20">
                         </label>
-                        <label id="ruleValueRow" style="display:none">
-                            Value
-                            <input type="number" id="ruleValue" min="0" max="99" value="5">
+
+                        <label class="field">
+                            Height 
+                            <input type="number" id="gridH" value="4" min="2" max="20">
                         </label>
-                        <button class="btn" onclick="applyRule()" style="margin-top:6px">
-                            Apply
+
+                        <button class="btn primary" onclick="pips.rebuildGrid()">
+                            &#8634; Rebuild Grid
                         </button>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            Regions
+                        </div>
+
+                        <div id="regionList"></div>
+
+                        <button class="btn" onclick="pips.addRegion()" style="margin-top:8px">
+                            &plus; New Region
+                        </button>
+                    </div>
+
+                    <div class="section" id="ruleSection" style="display:none">
+                        <div class="section-title">
+                            Rule for Region 
+                            <span id="ruleRegionLabel"></span>
+                        </div>
+
+                        <div class="rule-editor">
+                            <label>
+                                Type 
+                                <select id="ruleType" onchange="pips.updateRuleUI()">
+                                    <option value="none">
+                                        None
+                                    </option>
+                                    <option value="eq">
+                                        Equal (=)
+                                    </option>
+                                    <option value="neq">
+                                        Not Equal (!=)
+                                    </option>
+                                    <option value="gt">
+                                        Sum &gt; N
+                                    </option>
+                                    <option value="lt">
+                                        Sum &lt; N
+                                    </option>
+                                    <option value="sum">
+                                        Sum = N
+                                    </option>
+                                </select>
+                            </label>
+                            <label id="ruleValueRow" style="display:none">
+                                Value 
+                                <input type="number" id="ruleValue" min="0" max="99" value="5">
+                            </label>
+
+                            <button class="btn" onclick="pips.applyRule()" style="margin-top:6px">
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="tool-group">
+                            <button class="btn active" data-tool="region" onclick="pips.setTool('region')">
+                                &#9670; Paint Region
+                            </button>
+                            <button class="btn" data-tool="erase" onclick="pips.setTool('erase')">
+                                &#9672; Erase Region
+                            </button>
+                            <button class="btn" data-tool="hole" onclick="pips.setTool('hole')">
+                                &#9671; Paint Hole
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="section">
-                    <div class="tool-group">
-                        <button class="btn active" data-tool="region" onclick="setTool('region')">
-                            &#9670; Paint Region
-                        </button>
+                <div class="main">
+                    <div class="grid-container">
+                        <div class="grid" id="grid">
+                        </div>
+                    </div>
+                </div>
 
-                        <button class="btn" data-tool="erase" onclick="setTool('erase')">
-                            &#9672; Erase Region
-                        </button>
+                <div class="sidebar-right">
+                    <div id="solutionBanner" class="solution-banner"></div>
 
-                        <button class="btn" data-tool="hole" onclick="setTool('hole')">
-                            &#9671; Paint Hole
+                    <div class="status" id="pipsStatus">
+                        Ready
+                    </div>
+
+                    <div class="section output-area">
+                        <div class="section-title">
+                            Puzzle String
+                        </div>
+                        <textarea id="puzzleStr" spellcheck="false" placeholder="Paste or export puzzle string..."></textarea>
+                    </div>
+
+                    <div class="section">
+                        <button class="btn primary" onclick="pips.solveFromUI()">
+                            &#10003; Solve
                         </button>
+                        <button class="btn" onclick="pips.clearSolution()">
+                            &#10005; Clear Solution
+                        </button>
+                        <button class="btn" onclick="pips.loadFromString()">
+                            &#8613; Import Puzzle
+                        </button>
+                        <button class="btn" onclick="pips.exportToString()" style="margin-top:6px">
+                            &#8615; Export Puzzle
+                        </button>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            Domino Inventory
+                        </div>
+
+                        <div class="domino-list" id="dominoList"></div>
+
+                        <div class="domino-add">
+                            <input type="text" id="pipA" maxlength="1" placeholder="A">
+                            <input type="text" id="pipB" maxlength="1" placeholder="B">
+                            <button onclick="pips.addDomino()">
+                                &plus;
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="main">
-                <div class="grid-container">
-                    <div class="grid" id="grid"></div>
-                </div>
-            </div>
+            <div class="solver-view" id="view-sudoku">
+                <div class="sidebar-left">
+                    <div class="section">
+                        <div class="section-title">
+                            Input
+                        </div>
 
-            <div class="sidebar-right">
-                <div id="solutionBanner" class="solution-banner"></div>
-                <div class="status" id="status">
-                    Ready
-                </div>
-                <div class="section output-area">
-                    <div class="section-title">
-                        Puzzle String
+                        <div class="sud-numpad" id="sudNumpad"></div>
+
+                        <button class="btn" onclick="sudoku.clearCell()" style="margin-top:8px">
+                            &#9003; Clear Cell
+                        </button>
                     </div>
-                    <textarea id="puzzleStr" spellcheck="false" placeholder="Paste or export puzzle string..."></textarea>
-                </div>
+                    <div class="section">
+                        <div class="section-title">
+                            Presets
+                        </div>
 
-                <div class="section">
-                    <button class="btn primary" onclick="solveFromUI()">
-                        &#10003; Solve
-                    </button>
-                    <button class="btn" onclick="clearSolution()">
-                        &#10005; Clear Solution
-                    </button>
-                    <button class="btn" onclick="loadFromString()">
-                        &#8613; Import Puzzle
-                    </button>
-                    <button class="btn" onclick="exportToString()" style="margin-top:6px">
-                        &#8615; Export Puzzle
-                    </button>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">
-                        Domino Inventory
+                        <div class="sud-presets" id="sudPresets"></div>
                     </div>
-                    <div class="domino-list" id="dominoList"></div>
-                    <div class="domino-add">
-                        <input type="text" id="pipA" maxlength="1" placeholder="A">
-                        <input type="text" id="pipB" maxlength="1" placeholder="B">
-                        <button onclick="addDomino()">&plus;</button>
+                </div>
+
+                <div class="main" id="sudMain">
+                    <div class="grid-container" id="sudGridContainer">
+                        <div class="sud-grid" id="sudGrid"></div>
+                    </div>
+                </div>
+
+                <div class="sidebar-right">
+                    <div id="sudBanner" class="solution-banner"></div>
+
+                    <div class="status" id="sudStatus">
+                        Ready
+                    </div>
+
+                    <div class="section">
+                        <button class="btn primary" onclick="sudoku.solve()">
+                            &#10003; Solve
+                        </button>
+
+                        <button class="btn" onclick="sudoku.clearSolution()">
+                            &#10005; Clear Solution
+                        </button>
+
+                        <button class="btn" onclick="sudoku.clearAll()">
+                            &#8634; Clear All
+                        </button>
+                    </div>
+
+                    <div class="section output-area">
+                        <div class="section-title">
+                            Puzzle String
+                        </div>
+
+                        <textarea id="sudPuzzleStr" spellcheck="false" placeholder="81-char string, 0 = empty..."></textarea>
+                    </div>
+
+                    <div class="section">
+                        <button class="btn" onclick="sudoku.importStr()">
+                            &#8613; Import
+                        </button>
+
+                        <button class="btn" onclick="sudoku.exportStr()">
+                            &#8615; Export
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
         <script>
-            const TOOL_REGION = 0, 
-                  TOOL_HOLE = 1, 
+        const navLinks = document.querySelectorAll('.nav-link');
+        const views = document.querySelectorAll('.solver-view');
+
+        function switchView(id) {
+            views.forEach(v => v.classList.remove('active'));
+            navLinks.forEach(l => l.classList.remove('active'));
+
+            const target = document.getElementById('view-' + id);
+
+            if (target) 
+                target.classList.add('active');
+
+            const link = document.querySelector(`.nav-link[data-view="${id}"]`);
+
+            if (link) 
+                link.classList.add('active');
+
+            closeSidebars();
+        }
+
+        window.addEventListener('hashchange', () => switchView(location.hash.replace('#','') || 'pips'));
+
+        function getActiveSidebars() {
+            const active = document.querySelector('.solver-view.active');
+
+            if (!active) 
+                return { left: null, right: null };
+
+            return { 
+                left: active.querySelector('.sidebar-left'), 
+                right: active.querySelector('.sidebar-right') 
+            };
+        }
+
+        function closeSidebars() {
+            document.querySelectorAll('.sidebar-left, .sidebar-right').forEach(s => s.classList.remove('open'));
+            document.getElementById('sidebarOverlay').classList.remove('visible');
+        }
+
+        document.getElementById('toggleLeft').addEventListener('click', () => {
+            const { left } = getActiveSidebars(); 
+
+            if (!left) 
+                return;
+
+            const opening = !left.classList.contains('open'); 
+
+            closeSidebars();
+
+            if (opening) { 
+                left.classList.add('open'); 
+                document.getElementById('sidebarOverlay').classList.add('visible'); 
+            }
+        });
+
+        document.getElementById('toggleRight').addEventListener('click', () => {
+            const { right } = getActiveSidebars(); 
+
+            if (!right) 
+                return;
+
+            const opening = !right.classList.contains('open'); 
+
+            closeSidebars();
+
+            if (opening) { 
+                right.classList.add('open'); 
+                document.getElementById('sidebarOverlay').classList.add('visible'); 
+            }
+        });
+
+        document.getElementById('sidebarOverlay').addEventListener('click', closeSidebars);
+
+        const pips = (function() {
+            const TOOL_REGION = 0,
+                  TOOL_HOLE = 1,
                   TOOL_ERASE = 2;
 
-            const RULE_NONE = 0, 
-                  RULE_EQ = 1, 
-                  RULE_NEQ = 2, 
-                  RULE_GT = 3, 
-                  RULE_LT = 4, 
+            const RULE_NONE = 0,
+                  RULE_EQ = 1,
+                  RULE_NEQ = 2,
+                  RULE_GT = 3,
+                  RULE_LT = 4,
                   RULE_SUM = 5;
 
-            const HPAINT_ADD = 0, 
+            const HPAINT_ADD = 0,
                   HPAINT_REMOVE = 1;
 
-            const RULE_STR_TO_INT = { 
-                'none': RULE_NONE, 
-                'eq': RULE_EQ, 
-                'neq': RULE_NEQ, 
-                'gt': RULE_GT, 
-                'lt': RULE_LT, 
-                'sum': RULE_SUM 
+            const RULE_STR_TO_INT = {
+                'none' : 0,
+                'eq' : 1,
+                'neq' : 2,
+                'gt' : 3,
+                'lt' : 4,
+                'sum' : 5
             };
 
             const RULE_INT_TO_STR = [
-                'none', 
-                'eq', 
-                'neq', 
-                'gt', 
-                'lt', 
+                'none',
+                'eq',
+                'neq',
+                'gt',
+                'lt',
                 'sum'
             ];
 
-            const TOOL_STR_TO_INT = { 
-                'region': TOOL_REGION, 
-                'hole': TOOL_HOLE, 
-                'erase': TOOL_ERASE 
+            const TOOL_STR_TO_INT = {
+                'region' : 0,
+                'hole' : 1,
+                'erase' : 2
             };
 
             const REGION_COLORS = [
-                '#5B8DEF', 
-                '#E05555', 
-                '#4EC990', 
-                '#C678DD', 
+                '#5B8DEF',
+                '#E05555',
+                '#4EC990',
+                '#C678DD',
                 '#E8A244',
-                '#56B6C2', 
-                '#D4793A', 
-                '#7C8CBF', 
-                '#E06C9F', 
+                '#56B6C2',
+                '#D4793A',
+                '#7C8CBF',
+                '#E06C9F',
                 '#98C379',
-                '#D19A66', 
-                '#61AFEF', 
-                '#BE5046', 
-                '#A9DC76', 
+                '#D19A66',
+                '#61AFEF',
+                '#BE5046',
+                '#A9DC76',
                 '#FC9867',
-                '#78DCE8', 
-                '#FF6188', 
-                '#A8CC8C', 
-                '#E1ACFF', 
+                '#78DCE8',
+                '#FF6188',
+                '#A8CC8C',
+                '#E1ACFF',
                 '#FFD580',
-                '#88C0D0', 
-                '#BF616A', 
-                '#A3BE8C', 
-                '#B48EAD', 
+                '#88C0D0',
+                '#BF616A',
+                '#A3BE8C',
+                '#B48EAD',
                 '#EBCB8B',
                 '#D08770'
             ];
 
-            const RULE_BADGE = [
-                null, 
-                '=', 
-                '≠', 
-                null, 
-                null, 
-                null
-            ];
+            let gridW = 5,
+                gridH = 4,
+                cells = [],
+                regions = [],
+                dominoes = [];
 
-            let gridW = 5;
-            let gridH = 4;
-            let cells = [];
-            let regions = [];
-            let dominoes = [];
-            let activeTool = TOOL_REGION;
-            let activeRegion = 0;
-            let mouseDown = false;
-            let zoomLevel = 1.0;
-            let holePaintMode = -1;
-            let cellElements = [];
-            let dominoMap = [];
-            let badgesDirty = true;
+            let activeTool = TOOL_REGION,
+                activeRegion = 0,
+                mouseDown = false,
+                zoomLevel = 1.0,
+                holePaintMode = -1;
 
-            const elGrid = document.getElementById('grid');
-            const elGridContainer = document.querySelector('.grid-container');
-            const elGridW = document.getElementById('gridW');
-            const elGridH = document.getElementById('gridH');
-            const elRegionList = document.getElementById('regionList');
-            const elRuleSection = document.getElementById('ruleSection');
-            const elRuleRegionLabel = document.getElementById('ruleRegionLabel');
-            const elRuleType = document.getElementById('ruleType');
-            const elRuleValue = document.getElementById('ruleValue');
-            const elRuleValueRow = document.getElementById('ruleValueRow');
-            const elPuzzleStr = document.getElementById('puzzleStr');
-            const elStatus = document.getElementById('status');
-            const elSolutionBanner = document.getElementById('solutionBanner');
-            const elDominoList = document.getElementById('dominoList');
-            const elPipA = document.getElementById('pipA');
-            const elPipB = document.getElementById('pipB');
-            const toolButtons = document.querySelectorAll('[data-tool]');
+            let cellElements = [],
+                dominoMap = [],
+                badgesDirty = true;
 
-            let paintQueue = new Set();
-            let isPaintingFrame = false;
+            const el = id => document.getElementById(id);
+
+            const elGrid = el('grid'),
+                  elGridContainer = elGrid.parentElement;
+
+            const elGridW = el('gridW'),
+                  elGridH = el('gridH'),
+                  elRegionList = el('regionList');
+
+            const elRuleSection = el('ruleSection'),
+                  elRuleRegionLabel = el('ruleRegionLabel');
+
+            const elRuleType = el('ruleType'),
+                  elRuleValue = el('ruleValue'),
+                  elRuleValueRow = el('ruleValueRow');
+
+            const elPuzzleStr = el('puzzleStr'),
+                  elStatus = el('pipsStatus'),
+                  elSolutionBanner = el('solutionBanner');
+
+            const elDominoList = el('dominoList'),
+                  elPipA = el('pipA'),
+                  elPipB = el('pipB');
+
+            const toolButtons = document.querySelectorAll('#view-pips [data-tool]');
+
+            let paintQueue = new Set(),
+                isPaintingFrame = false;
 
             function processPaintQueue() {
-                paintQueue.forEach(idx => paintCell(idx));
+                paintQueue.forEach(
+                    idx => paintCell(idx)
+                );
                 paintQueue.clear();
                 isPaintingFrame = false;
             }
 
             function queuePaint(idx) {
                 paintQueue.add(idx);
+
                 if (!isPaintingFrame) {
                     isPaintingFrame = true;
                     requestAnimationFrame(processPaintQueue);
@@ -803,88 +1235,111 @@
             }
 
             elGrid.onmousedown = function(e) {
-                const cellDiv = e.target.closest('.cell');
-                if (!cellDiv) return;
+                const cd = e.target.closest('.cell');
+
+                if (!cd)
+                    return;
 
                 mouseDown = true;
-                const idx = parseInt(cellDiv.dataset.idx);
 
-                if (activeTool === TOOL_HOLE) {
-                    holePaintMode = cells[idx].region === -1 ? HPAINT_REMOVE : HPAINT_ADD;
-                }
+                const idx = parseInt(cd.dataset.idx);
+
+                if (activeTool===TOOL_HOLE)
+                    if (cells[idx].region === -1)
+                        holePaintMode = HPAINT_REMOVE;
+                    else 
+                        holePaintMode = HPAINT_ADD;
 
                 paintCell(idx);
                 e.preventDefault();
             };
 
             elGrid.onmouseover = function(e) {
-                if (!mouseDown) return;
-                const cellDiv = e.target.closest('.cell');
-                if (!cellDiv) return;
-                queuePaint(parseInt(cellDiv.dataset.idx));
+                if (!mouseDown)
+                    return;
+
+                const cd = e.target.closest('.cell');
+
+                if (!cd)
+                    return;
+
+                queuePaint(parseInt(cd.dataset.idx));
             };
 
-            window.onmouseup = function() {
-                mouseDown = false;
-                holePaintMode = -1;
-            };
-
-            document.querySelector('.main').addEventListener('wheel', (e) => {
-                e.preventDefault();
-                const delta = e.deltaY > 0 ? -0.1 : 0.1;
-                zoomLevel = Math.min(3.0, Math.max(0.3, zoomLevel + delta));
-                elGridContainer.style.transform = `scale(${zoomLevel})`;
-            }, { passive: false });
-
-            let solverWorker = new Worker('worker.js');
-
-            solverWorker.onmessage = function(e) {
-                if (e.data.type === 'ready') {
-                    setStatus('Wasm loaded - ready');
-                } else if (e.data.type === 'result') {
-                    const raw = e.data.result;
-                    if (raw) {
-                        const sep = raw.indexOf('|');
-                        const values = sep >= 0 ? raw.substring(0, sep) : raw;
-                        const dmap = sep >= 0 ? raw.substring(sep + 1) : '';
-
-                        dominoMap = new Array(cells.length).fill(null);
-                        const len = Math.min(values.length, cells.length);
-
-                        for (let i = 0; i < len; i++) {
-                            const c = cells[i];
-                            if (c.region !== -1 && c.region !== null) {
-                                c.value = values.charCodeAt(i) - 48;
-                            }
-                            if (i < dmap.length && dmap.charCodeAt(i) !== 46) {
-                                dominoMap[i] = dmap.charCodeAt(i);
-                            }
-                        }
-
-                        renderGrid();
-                        showBanner('solved', 'Solution found!');
-                        setStatus('Solved');
-                    } else {
-                        showBanner('failed', 'No solution found.');
-                        setStatus('No solution');
-                    }
-                } else if (e.data.type === 'error') {
-                    showBanner('failed', 'Error: ' + e.data.error);
-                    setStatus('Error');
+            window.addEventListener(
+                'mouseup',
+                () => {
+                    mouseDown = false;
+                    holePaintMode = -1;
                 }
-            };
+            );
 
-            function init() {
-                rebuildGrid();
+            document.querySelector('#view-pips .main').addEventListener(
+                'wheel',
+                (e) => { 
+                    e.preventDefault();
+                    zoomLevel = Math.min(3.0,Math.max(0.3,zoomLevel + (e.deltaY > 0 ? -0.1 : 0.1)));
+                    elGridContainer.style.transform=`scale(${zoomLevel})`;
+                },
+                {
+                    passive : false
+                }
+            );
+
+            let solverWorker;
+
+            try { 
+                solverWorker = new Worker('worker.js');
+            } catch(e) {
+                solverWorker=null;
+            }
+
+            if(solverWorker) {
+                solverWorker.onmessage = function(e) {
+                    if (e.data.type === 'ready') {
+                        setStatus('Wasm loaded - ready');
+                    } else if (e.data.type === 'result') {
+                        const raw = e.data.result;
+
+                        if (raw) {
+                            const sep = raw.indexOf('|');
+                            const values = sep >= 0 ? raw.substring(0,sep) : raw;
+                            const dmap = sep >= 0 ? raw.substring(sep + 1) : '';
+
+                            dominoMap = new Array(cells.length).fill(null);
+
+                            const len = Math.min(values.length, cells.length);
+
+                            for(let i = 0; i < len; i++) {
+                                if (cells[i].region !== -1 && cells[i].region !== null)
+                                    cells[i].value = values.charCodeAt(i) - 48;
+
+                                if(i < dmap.length && dmap.charCodeAt(i) !== 46)
+                                    dominoMap[i] = dmap.charCodeAt(i);
+                            }
+
+                            renderGrid();
+                            showBanner('solved','Solution found!');
+                            setStatus('Solved');
+                        } else {
+                            showBanner('failed','No solution found.');
+                            setStatus('No solution');
+                        }
+                    } else if (e.data.type === 'error') {
+                        showBanner('failed', 'Error: ' + e.data.error);
+                        setStatus('Error');
+                    }
+                };
             }
 
             function initDOMGrid() {
-                elGrid.style.gridTemplateColumns = `repeat(${gridW}, 52px)`;
+                elGrid.style.gridTemplateColumns = `repeat(${gridW}, auto)`;
                 elGrid.innerHTML = '';
                 cellElements = new Array(gridW * gridH);
 
-                for (let i = 0; i < gridW * gridH; i++) {
+                for(let i = 0; i < gridW * gridH; i++) {
                     const div = document.createElement('div');
+
                     div.className = 'cell';
                     div.dataset.idx = i;
                     elGrid.appendChild(div);
@@ -895,20 +1350,24 @@
             function rebuildGrid() {
                 gridW = parseInt(elGridW.value) || 5;
                 gridH = parseInt(elGridH.value) || 4;
+
                 const count = gridW * gridH;
+
                 cells = new Array(count);
                 dominoMap = new Array(count).fill(null);
 
                 for (let i = 0; i < count; i++)
-                    cells[i] = { region: null, value: null };
+                    cells[i] = { region:null, value:null};
 
                 initDOMGrid();
+                badgesDirty = true;
                 renderGrid();
                 clearSolution();
             }
 
             function renderGrid() {
                 elGridContainer.style.transform = `scale(${zoomLevel})`;
+
                 for (let i = 0; i < cells.length; i++)
                     updateCellDOM(i);
 
@@ -921,18 +1380,19 @@
             function renderRegionBadges() {
                 const existing = elGridContainer.querySelectorAll('.region-badge');
 
-                for (let i = 0; i < existing.length; i++)
+                for(let i = 0; i < existing.length; i++)
                     existing[i].remove();
 
                 const seen = new Set();
-                for (let i = 0; i < cells.length; i++) {
+
+                for(let i = 0; i < cells.length; i++) {
                     const regIdx = cells[i].region;
-                    if (regIdx === null || regIdx === -1 || seen.has(regIdx))
-                        continue;
-                    if (regIdx >= regions.length)
+
+                    if (regIdx === null || regIdx === -1 || seen.has(regIdx) || regIdx >= regions.length)
                         continue;
 
                     seen.add(regIdx);
+
                     const reg = regions[regIdx];
                     const ruleText = formatRuleBadge(reg);
 
@@ -941,98 +1401,134 @@
 
                     const cellEl = cellElements[i];
                     const badge = document.createElement('div');
+
                     badge.className = 'region-badge';
                     badge.style.background = reg.color;
 
                     const span = document.createElement('span');
+
                     span.textContent = ruleText;
                     badge.appendChild(span);
-
-                    const cellLeft = cellEl.offsetLeft + elGrid.offsetLeft;
-                    const cellTop = cellEl.offsetTop + elGrid.offsetTop;
-                    badge.style.left = (cellLeft - 6) + 'px';
-                    badge.style.top = (cellTop + 34) + 'px';
-
+                    badge.style.left = (cellEl.offsetLeft + elGrid.offsetLeft - 6) + 'px';
+                    badge.style.top = (cellEl.offsetTop + elGrid.offsetTop + 34) + 'px';
                     elGridContainer.appendChild(badge);
                 }
             }
 
             function formatRuleBadge(reg) {
-                const type = reg.rule.type;
-                if (type === RULE_NONE) return null;
-                if (type === RULE_EQ) return '=';
-                if (type === RULE_NEQ) return '≠';
-                if (type === RULE_GT) return '>' + (reg.rule.value ?? '');
-                if (type === RULE_LT) return '<' + (reg.rule.value ?? '');
-                if (type === RULE_SUM) return '' + (reg.rule.value ?? '');
+                const t = reg.rule.type;
+
+                if (t === RULE_NONE)
+                    return null;
+
+                if (t === RULE_EQ)
+                    return '=';
+
+                if (t === RULE_NEQ)
+                    return '≠';
+
+                if (t === RULE_GT)
+                    return '>' + (reg.rule.value ?? '');
+
+                if (t === RULE_LT)
+                    return '<' + (reg.rule.value ?? '');
+
+                if (t === RULE_SUM)
+                    return '' + (reg.rule.value ?? '');
+
                 return null;
             }
 
             function updateCellDOM(idx) {
-                const cell = cells[idx];
-                const div = cellElements[idx];
-                const r = (idx / gridW) | 0;
-                const c = idx % gridW;
-                const reg = cell.region;
+                const cell = cells[idx],
+                      div = cellElements[idx];
 
-                let cls = 'cell';
-                let bg = '', blc = '', brc = '', btc = '', bbc = '';
+                const r = (idx / gridW) | 0,
+                      c = idx % gridW,
+                      reg = cell.region;
+
+                let cls = 'cell',
+                    bg = '',
+                    blc = '',
+                    brc = '',
+                    btc = '',
+                    bbc = '';
 
                 if (reg === -1) {
                     cls += ' hole';
                 } else if (reg !== null && reg < regions.length) {
                     const region = regions[reg];
+
                     bg = region.colorBg;
 
-                    if (c > 0 && cells[idx - 1].region === reg) cls += ' no-border-left';
-                    else blc = region.color;
+                    if (c > 0 && cells[idx - 1].region === reg)
+                        cls += ' no-border-left';
+                    else 
+                        blc = region.color;
 
-                    if (c < gridW - 1 && cells[idx + 1].region === reg) cls += ' no-border-right';
-                    else brc = region.color;
+                    if (c < gridW - 1 && cells[idx + 1].region === reg)
+                        cls += ' no-border-right';
+                    else
+                        brc = region.color;
 
-                    if (r > 0 && cells[idx - gridW].region === reg) cls += ' no-border-top';
-                    else btc = region.color;
+                    if (r > 0 &&cells[idx - gridW].region === reg)
+                        cls += ' no-border-top';
+                    else
+                        btc = region.color;
 
-                    if (r < gridH - 1 && cells[idx + gridW].region === reg) cls += ' no-border-bottom';
-                    else bbc = region.color;
+                    if (r < gridH - 1 && cells[idx + gridW].region === reg)
+                        cls += ' no-border-bottom';
+                    else
+                        bbc = region.color;
                 }
 
                 const dm = dominoMap[idx];
 
                 if (dm) {
-                    if (c > 0 && dominoMap[idx - 1]) {
+                    if (c > 0 && dominoMap[idx - 1])
                         cls += dominoMap[idx - 1] === dm ? ' domino-join-left' : ' domino-edge-left';
-                    }
-                    if (c < gridW - 1 && dominoMap[idx + 1]) {
+
+                    if (c < gridW - 1 && dominoMap[idx + 1])
                         cls += dominoMap[idx + 1] === dm ? ' domino-join-right' : ' domino-edge-right';
-                    }
-                    if (r > 0 && dominoMap[idx - gridW]) {
+
+                    if (r > 0 && dominoMap[idx - gridW])
                         cls += dominoMap[idx - gridW] === dm ? ' domino-join-top' : ' domino-edge-top';
-                    }
-                    if (r < gridH - 1 && dominoMap[idx + gridW]) {
+
+                    if (r < gridH - 1 && dominoMap[idx + gridW])
                         cls += dominoMap[idx + gridW] === dm ? ' domino-join-bottom' : ' domino-edge-bottom';
-                    }
                 }
 
-                if (cell.value !== null) {
+                if (cell.value !== null)
                     cls += ' solved';
-                }
 
-                if (div.className !== cls) 
+                if (div.className !== cls)
                     div.className = cls;
 
                 const s = div.style;
-                if (s.background !== bg) s.background = bg;
-                if (s.borderLeftColor !== blc) s.borderLeftColor = blc;
-                if (s.borderRightColor !== brc) s.borderRightColor = brc;
-                if (s.borderTopColor !== btc) s.borderTopColor = btc;
-                if (s.borderBottomColor !== bbc) s.borderBottomColor = bbc;
+
+                if (s.background !== bg)
+                    s.background = bg;
+
+                if (s.borderLeftColor !== blc)
+                    s.borderLeftColor = blc;
+
+                if (s.borderRightColor !== brc)
+                    s.borderRightColor = brc;
+
+                if (s.borderTopColor !== btc)
+                    s.borderTopColor = btc;
+
+                if (s.borderBottomColor !== bbc)
+                    s.borderBottomColor = bbc;
 
                 if (cell.value !== null) {
-                    const valStr = '' + cell.value;
-                    if (div.textContent !== valStr) div.textContent = valStr;
+                    const v = '' + cell.value;
+
+                    if (div.textContent !== v)
+                        div.textContent = v;
                 } else {
-                    if (div.textContent !== '') div.textContent = '';
+                    if (div.textContent !== '')
+                        div.textContent = '';
                 }
             }
 
@@ -1066,11 +1562,14 @@
 
                     if (idx % gridW > 0)
                         updateCellDOM(idx - 1);
-                    if (idx % gridW < gridW - 1)
+
+                    if(idx % gridW < gridW - 1)
                         updateCellDOM(idx + 1);
-                    if (idx >= gridW)
+
+                    if(idx >= gridW)
                         updateCellDOM(idx - gridW);
-                    if (idx < cells.length - gridW)
+
+                    if(idx < cells.length - gridW)
                         updateCellDOM(idx + gridW);
 
                     renderRegionBadges();
@@ -1080,23 +1579,30 @@
 
             function setTool(toolStr) {
                 activeTool = TOOL_STR_TO_INT[toolStr] ?? TOOL_REGION;
+
                 for (let i = 0; i < toolButtons.length; i++) {
-                    const b = toolButtons[i];
-                    b.classList.toggle('active', b.dataset.tool === toolStr);
+                    toolButtons[i].classList.toggle(
+                        'active', 
+                        toolButtons[i].dataset.tool === toolStr
+                    );
                 }
             }
 
-            function addRegion() {
+            function addRegion() { 
                 const idx = regions.length;
                 const color = REGION_COLORS[idx % REGION_COLORS.length];
 
-                regions.push({
-                    letter: String.fromCharCode(65 + idx),
-                    color: color,
-                    colorBg: color + '22',
-                    rule: { type: RULE_NONE, value: null }
-                });
-
+                regions.push(
+                    {
+                        letter : String.fromCharCode(65 + idx), 
+                        color, 
+                        colorBg : color + '22', 
+                        rule : {
+                            type : RULE_NONE,
+                            value : null
+                        }
+                    }
+                );
                 activeRegion = idx;
                 renderRegions();
                 badgesDirty = true;
@@ -1104,12 +1610,14 @@
 
             function removeRegion(idx) {
                 for (let i = 0; i < cells.length; i++) {
-                    const c = cells[i];
-                    if (c.region === idx) c.region = null;
-                    else if (c.region !== null && c.region !== -1 && c.region > idx) c.region--;
+                    if (cells[i].region === idx)
+                        cells[i].region = null;
+                    else if (cells[i].region !== null && cells[i].region !== -1 && cells[i].region > idx)
+                        cells[i].region--;
                 }
 
                 regions.splice(idx, 1);
+
                 for (let i = 0; i < regions.length; i++)
                     regions[i].letter = String.fromCharCode(65 + i);
 
@@ -1121,273 +1629,275 @@
                 renderGrid();
             }
 
-            function renderRegions() {
-                elRegionList.innerHTML = '';
+            function renderRegions(){elRegionList.innerHTML='';for(let i=0;i<regions.length;i++){const reg=regions[i],div=document.createElement('div');div.className='region-item'+(i===activeRegion?' active':'');div.innerHTML=`<div class="region-swatch" style="background:${reg.color}"></div><span>${reg.letter}</span><span class="region-rule">${formatRule(reg.rule)}</span><button class="region-delete" title="Remove region">&times;</button>`;const ri=i;div.querySelector('.region-delete').addEventListener('click',(e)=>{e.stopPropagation();removeRegion(ri);});div.addEventListener('click',()=>{activeRegion=ri;activeTool=TOOL_REGION;for(let j=0;j<toolButtons.length;j++)toolButtons[j].classList.toggle('active',toolButtons[j].dataset.tool==='region');renderRegions();showRuleEditor(ri);});elRegionList.appendChild(div);}showRuleEditor(activeRegion);}
 
-                for (let i = 0; i < regions.length; i++) {
-                    const reg = regions[i];
-                    const div = document.createElement('div');
+            function formatRule(rule){switch(rule.type){case RULE_EQ:return'&equals;';case RULE_NEQ:return'&ne;';case RULE_GT:return'&gt;'+(rule.value??'?');case RULE_LT:return'&lt;'+(rule.value??'?');case RULE_SUM:return'&sum;'+(rule.value??'?');default:return'--';}}
 
-                    div.className = 'region-item' + (i === activeRegion ? ' active' : '');
-                    div.innerHTML = `
-                        <div class="region-swatch" style="background:${reg.color}"></div>
-                        <span>${reg.letter}</span>
-                        <span class="region-rule">${formatRule(reg.rule)}</span>
-                        <button class="region-delete" title="Remove region">&times;</button>
-                    `;
+            function showRuleEditor(idx){if(idx<0||idx>=regions.length){elRuleSection.style.display='none';return;}elRuleSection.style.display='';elRuleRegionLabel.textContent=regions[idx].letter;elRuleType.value=RULE_INT_TO_STR[regions[idx].rule.type]||'none';elRuleValue.value=regions[idx].rule.value??'';updateRuleUI();}
 
-                    const regIdx = i;
-                    div.querySelector('.region-delete').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        removeRegion(regIdx);
-                    });
+            function updateRuleUI(){elRuleValueRow.style.display=((RULE_STR_TO_INT[elRuleType.value]??RULE_NONE)>=RULE_GT)?'':'none';}
 
-                    div.addEventListener('click', () => {
-                        activeRegion = regIdx;
-                        activeTool = TOOL_REGION;
-                        for (let j = 0; j < toolButtons.length; j++)
-                            toolButtons[j].classList.toggle('active', toolButtons[j].dataset.tool === 'region');
-                        renderRegions();
-                        showRuleEditor(regIdx);
-                    });
+            function applyRule(){const type=RULE_STR_TO_INT[elRuleType.value]??RULE_NONE;const val=parseInt(elRuleValue.value);regions[activeRegion].rule={type,value:type>=RULE_GT?(isNaN(val)?0:val):null};renderRegions();badgesDirty=true;renderRegionBadges();badgesDirty=false;}
 
-                    elRegionList.appendChild(div);
-                }
+            function addDomino(){const a=parseInt(elPipA.value),b=parseInt(elPipB.value);if(isNaN(a)||isNaN(b)||a<0||a>6||b<0||b>6)return;dominoes.push({a,b});elPipA.value='';elPipB.value='';renderDominoes();}
 
-                showRuleEditor(activeRegion);
-            }
+            function renderDominoes(){elDominoList.innerHTML='';for(let i=0;i<dominoes.length;i++){const d=dominoes[i],chip=document.createElement('div');chip.className='domino-chip';chip.innerHTML=`<span class="pip">${d.a}</span><span class="pip">${d.b}</span>`;chip.title='Click to remove';const di=i;chip.addEventListener('click',()=>{dominoes.splice(di,1);renderDominoes();});elDominoList.appendChild(chip);}}
 
-            function formatRule(rule) {
-                switch (rule.type) {
-                    case RULE_EQ:  return '&equals;';
-                    case RULE_NEQ: return '&ne;';
-                    case RULE_GT:  return '&gt;' + (rule.value ?? '?');
-                    case RULE_LT:  return '&lt;' + (rule.value ?? '?');
-                    case RULE_SUM: return '&sum;' + (rule.value ?? '?');
-                    default:       return '--';
-                }
-            }
+            const RULE_EXPORT=[' ','=','!=','>','<',''];
 
-            function showRuleEditor(idx) {
-                if (idx < 0 || idx >= regions.length) {
-                    elRuleSection.style.display = 'none';
-                    return;
-                }
+            function exportToString(){let regionMap='';for(let i=0;i<cells.length;i++){const reg=cells[i].region;regionMap+=(reg===-1||reg===null)?'0':regions[reg].letter;}let domStr='';for(let i=0;i<dominoes.length;i++){if(i>0)domStr+=',';domStr+=''+dominoes[i].a+dominoes[i].b;}const usedRegions=new Set();for(let i=0;i<cells.length;i++){const r=cells[i].region;if(r!==null&&r!==-1)usedRegions.add(r);}const sortedUsed=[...usedRegions].sort((a,b)=>a-b);let ruleStr='';for(let i=0;i<sortedUsed.length;i++){if(i>0)ruleStr+=',';const reg=regions[sortedUsed[i]],r=reg.rule;let val=RULE_EXPORT[r.type];if(r.type>=RULE_GT)val+=r.value;ruleStr+=reg.letter+':'+val;}elPuzzleStr.value=`${gridW}x${gridH}|${domStr}|${regionMap}|${ruleStr}`;}
 
-                elRuleSection.style.display = '';
-                elRuleRegionLabel.textContent = regions[idx].letter;
-                const rule = regions[idx].rule;
-                elRuleType.value = RULE_INT_TO_STR[rule.type] || 'none';
-                elRuleValue.value = rule.value ?? '';
-                updateRuleUI();
-            }
+            function loadFromString(){const str=elPuzzleStr.value.replace(/^\s+/,'').replace(/[\r\n]+$/,'');if(!str)return;try{parsePuzzleString(str);renderGrid();renderRegions();renderDominoes();badgesDirty=true;renderRegionBadges();badgesDirty=false;setStatus('Puzzle imported');}catch(e){setStatus('Parse error: '+e.message);}}
 
-            function updateRuleUI() {
-                const type = RULE_STR_TO_INT[elRuleType.value] ?? RULE_NONE;
-                elRuleValueRow.style.display = (type >= RULE_GT) ? '' : 'none';
-            }
+            function parsePuzzleString(str){const parts=str.split('|');const[w,h]=parts[0].split('x').map(Number);gridW=w;gridH=h;elGridW.value=w;elGridH.value=h;dominoes=[];if(parts[1]){const pairs=parts[1].split(',');for(let i=0;i<pairs.length;i++){const p=pairs[i];if(p.length>=2)dominoes.push({a:p.charCodeAt(0)-48,b:p.charCodeAt(1)-48});}}regions=[];const regionMap=parts[2]||'';const letterToIdx={};const count=w*h;cells=new Array(count);for(let i=0;i<count;i++){const ch=i<regionMap.length?regionMap[i]:'0';if(ch==='0'){cells[i]={region:-1,value:null};}else{if(!(ch in letterToIdx)){letterToIdx[ch]=regions.length;const color=REGION_COLORS[regions.length%REGION_COLORS.length];regions.push({letter:ch,color,colorBg:color+'22',rule:{type:RULE_NONE,value:null}});}cells[i]={region:letterToIdx[ch],value:null};}}if(parts[3]){const segs=parts[3].split(',');for(let i=0;i<segs.length;i++){const seg=segs[i],letter=seg[0],rs=seg.substring(2),idx=letterToIdx[letter];if(idx===undefined)continue;if(rs==='=')regions[idx].rule={type:RULE_EQ,value:null};else if(rs==='!=')regions[idx].rule={type:RULE_NEQ,value:null};else if(rs.charCodeAt(0)===62)regions[idx].rule={type:RULE_GT,value:parseInt(rs.substring(1))};else if(rs.charCodeAt(0)===60)regions[idx].rule={type:RULE_LT,value:parseInt(rs.substring(1))};else if(rs===' ')regions[idx].rule={type:RULE_NONE,value:null};else regions[idx].rule={type:RULE_SUM,value:parseInt(rs)};}}dominoMap=new Array(count).fill(null);initDOMGrid();activeRegion=0;}
 
-            function applyRule() {
-                const type = RULE_STR_TO_INT[elRuleType.value] ?? RULE_NONE;
-                const val = parseInt(elRuleValue.value);
+            function solveFromUI(){if(!solverWorker){setStatus('Worker not available');return;}exportToString();const str=elPuzzleStr.value.replace(/^\s+/,'').replace(/[\r\n]+$/,'');if(!str)return;clearSolution();setStatus('Solving...');solverWorker.postMessage({type:'solve_pips',str});}
 
-                regions[activeRegion].rule = {
-                    type,
-                    value: type >= RULE_GT ? (isNaN(val) ? 0 : val) : null
-                };
+            function clearSolution(){for(let i=0;i<cells.length;i++)cells[i].value=null;dominoMap=new Array(cells.length).fill(null);renderGrid();hideBanner();}
 
-                renderRegions();
-                badgesDirty = true;
-                renderRegionBadges();
-                badgesDirty = false;
-            }
+            function showBanner(cls,msg){elSolutionBanner.className='solution-banner '+cls;elSolutionBanner.textContent=msg;}
+            function hideBanner(){elSolutionBanner.className='solution-banner';}
+            function setStatus(msg){elStatus.textContent=msg;}
 
-            function addDomino() {
-                const a = parseInt(elPipA.value);
-                const b = parseInt(elPipB.value);
+            rebuildGrid();
 
-                if (isNaN(a) || isNaN(b) || a < 0 || a > 6 || b < 0 || b > 6)
-                    return;
+            return{rebuildGrid,addRegion,setTool,updateRuleUI,applyRule,addDomino,solveFromUI,clearSolution,loadFromString,exportToString};
+        })();
 
-                dominoes.push({ a, b });
-                elPipA.value = '';
-                elPipB.value = '';
-                renderDominoes();
-            }
+        const sudoku = (function() {
+            let board = new Uint8Array(81);
+            let given = new Uint8Array(81);
+            let selectedCell = -1;
+            let cellEls = [];
+            let solveStartTime = 0;
 
-            function renderDominoes() {
-                elDominoList.innerHTML = '';
-                for (let i = 0; i < dominoes.length; i++) {
-                    const d = dominoes[i];
-                    const chip = document.createElement('div');
-                    chip.className = 'domino-chip';
-                    chip.innerHTML = `<span class="pip">${d.a}</span><span class="pip">${d.b}</span>`;
-                    chip.title = 'Click to remove';
-                    const di = i;
-                    chip.addEventListener('click', () => { dominoes.splice(di, 1); renderDominoes(); });
-                    elDominoList.appendChild(chip);
-                }
-            }
+            const elGrid = document.getElementById('sudGrid');
+            const elBanner = document.getElementById('sudBanner');
+            const elStatus = document.getElementById('sudStatus');
+            const elPuzzleStr = document.getElementById('sudPuzzleStr');
+            const elGridContainer = document.getElementById('sudGridContainer');
+            let zoomLevel = 1.0;
 
-            const RULE_EXPORT = [' ', '=', '!=', '>', '<', ''];
+            let solverWorker;
+            try { solverWorker = new Worker('worker.js'); } catch(e) { solverWorker = null; }
 
-            function exportToString() {
-                let regionMap = '';
-                for (let i = 0; i < cells.length; i++) {
-                    const reg = cells[i].region;
-                    regionMap += (reg === -1 || reg === null) ? '0' : regions[reg].letter;
-                }
+            if (solverWorker) {
+                solverWorker.onmessage = function(e) {
+                    if (e.data.type === 'ready') {
+                        setStatus('Wasm loaded - ready');
+                    } else if (e.data.type === 'result') {
+                        const raw = e.data.result;
+                        const dt = (performance.now() - solveStartTime).toFixed(2);
 
-                let domStr = '';
-                for (let i = 0; i < dominoes.length; i++) {
-                    if (i > 0) domStr += ',';
-                    domStr += '' + dominoes[i].a + dominoes[i].b;
-                }
+                        if (raw) {
+                            for (let i = 0; i < 81; i++)
+                                board[i] = raw.charCodeAt(i) - 48;
 
-                const usedRegions = new Set();
-                for (let i = 0; i < cells.length; i++) {
-                    const r = cells[i].region;
-                    if (r !== null && r !== -1) usedRegions.add(r);
-                }
-
-                const sortedUsed = [...usedRegions].sort((a, b) => a - b);
-                let ruleStr = '';
-                for (let i = 0; i < sortedUsed.length; i++) {
-                    if (i > 0) ruleStr += ',';
-                    const reg = regions[sortedUsed[i]];
-                    const r = reg.rule;
-                    let val = RULE_EXPORT[r.type];
-                    if (r.type >= RULE_GT) val += r.value;
-                    ruleStr += reg.letter + ':' + val;
-                }
-
-                elPuzzleStr.value = `${gridW}x${gridH}|${domStr}|${regionMap}|${ruleStr}`;
-            }
-
-            function loadFromString() {
-                const str = elPuzzleStr.value.replace(/^\s+/, '').replace(/[\r\n]+$/, '');
-                if (!str) return;
-
-                try {
-                    parsePuzzleString(str);
-                    renderGrid();
-                    renderRegions();
-                    renderDominoes();
-                    badgesDirty = true;
-                    renderRegionBadges();
-                    badgesDirty = false;
-                    setStatus('Puzzle imported');
-                } catch (e) {
-                    setStatus('Parse error: ' + e.message);
-                }
-            }
-
-            function parsePuzzleString(str) {
-                const parts = str.split('|');
-                const [w, h] = parts[0].split('x').map(Number);
-
-                gridW = w;
-                gridH = h;
-                elGridW.value = w;
-                elGridH.value = h;
-                dominoes = [];
-
-                if (parts[1]) {
-                    const pairs = parts[1].split(',');
-                    for (let i = 0; i < pairs.length; i++) {
-                        const pair = pairs[i];
-                        if (pair.length >= 2)
-                            dominoes.push({ a: pair.charCodeAt(0) - 48, b: pair.charCodeAt(1) - 48 });
-                    }
-                }
-
-                regions = [];
-                const regionMap = parts[2] || '';
-                const letterToIdx = {};
-                const count = w * h;
-                cells = new Array(count);
-
-                for (let i = 0; i < count; i++) {
-                    const ch = i < regionMap.length ? regionMap[i] : '0';
-                    if (ch === '0') {
-                        cells[i] = { region: -1, value: null };
-                    } else {
-                        if (!(ch in letterToIdx)) {
-                            letterToIdx[ch] = regions.length;
-                            const color = REGION_COLORS[regions.length % REGION_COLORS.length];
-                            regions.push({
-                                letter: ch,
-                                color: color,
-                                colorBg: color + '22',
-                                rule: { type: RULE_NONE, value: null }
-                            });
+                            renderGrid();
+                            showBanner('solved', 'Solved in ' + dt + 'ms');
+                            setStatus('Solved');
+                        } else {
+                            showBanner('failed', 'No solution found');
+                            setStatus('No solution');
                         }
-                        cells[i] = { region: letterToIdx[ch], value: null };
+                    } else if (e.data.type === 'error') {
+                        showBanner('failed', 'Error: ' + e.data.error);
+                        setStatus('Error');
                     }
-                }
-
-                if (parts[3]) {
-                    const segs = parts[3].split(',');
-                    for (let i = 0; i < segs.length; i++) {
-                        const seg = segs[i];
-                        const letter = seg[0];
-                        const rs = seg.substring(2);
-                        const idx = letterToIdx[letter];
-
-                        if (idx === undefined) continue;
-
-                        if (rs === '=') 
-                            regions[idx].rule = { type: RULE_EQ, value: null };
-                        else if (rs === '!=') 
-                            regions[idx].rule = { type: RULE_NEQ, value: null };
-                        else if (rs.charCodeAt(0) === 62) 
-                            regions[idx].rule = { type: RULE_GT, value: parseInt(rs.substring(1)) };
-                        else if (rs.charCodeAt(0) === 60) 
-                            regions[idx].rule = { type: RULE_LT, value: parseInt(rs.substring(1)) };
-                        else if (rs === ' ') 
-                            regions[idx].rule = { type: RULE_NONE, value: null };
-                        else 
-                            regions[idx].rule = { type: RULE_SUM, value: parseInt(rs) };
-                    }
-                }
-
-                dominoMap = new Array(count).fill(null);
-                initDOMGrid();
-                activeRegion = 0;
+                };
             }
 
-            function solveFromUI() {
-                exportToString();
-                const str = elPuzzleStr.value.replace(/^\s+/, '').replace(/[\r\n]+$/, '');
-                if (!str) return;
+            const PRESETS = [
+                { name: 'Easy',   diff: '~30 givens', str: '003020600900305001001806400008102900700000008006708200002609500800203009005010300' },
+                { name: 'Medium', diff: '~25 givens', str: '200080300060070084030500209000105408000000000402706000301007040720040060004010003' },
+                { name: 'Hard',   diff: '~17 givens', str: '000700000100000000000430200000000006000509000000000418000081000002000050040000300' },
+            ];
+
+            function buildGrid() {
+                elGrid.innerHTML = '';
+                cellEls = [];
+
+                for (let i = 0; i < 81; i++) {
+                    const div = document.createElement('div');
+                    div.className = 'sud-cell';
+                    div.dataset.idx = i;
+                    div.addEventListener('click', () => selectCell(i));
+                    elGrid.appendChild(div);
+                    cellEls.push(div);
+                }
+            }
+
+            function buildNumpad() {
+                const pad = document.getElementById('sudNumpad');
+
+                for (let n = 1; n <= 9; n++) {
+                    const btn = document.createElement('button');
+                    btn.textContent = n;
+                    btn.addEventListener('click', () => setNumber(n));
+                    pad.appendChild(btn);
+                }
+            }
+
+            function buildPresets() {
+                const container = document.getElementById('sudPresets');
+
+                for (const p of PRESETS) {
+                    const btn = document.createElement('button');
+                    btn.innerHTML = '<span class="preset-label">' + p.name + '</span><span class="preset-diff">' + p.diff + '</span>';
+                    btn.addEventListener('click', () => loadPreset(p.str));
+                    container.appendChild(btn);
+                }
+            }
+
+            function selectCell(idx) {
+                selectedCell = idx;
+                renderGrid();
+            }
+
+            function setNumber(n) {
+                if (selectedCell < 0) return;
+
+                board[selectedCell] = n;
+                given[selectedCell] = n;
+                renderGrid();
+
+                if (selectedCell < 80) {
+                    selectedCell++;
+                    renderGrid();
+                }
+            }
+
+            function clearCell() {
+                if (selectedCell < 0) return;
+
+                board[selectedCell] = 0;
+                given[selectedCell] = 0;
+                renderGrid();
+            }
+
+            function renderGrid() {
+                for (let i = 0; i < 81; i++) {
+                    const div = cellEls[i];
+                    let cls = 'sud-cell';
+
+                    if (i === selectedCell) cls += ' selected';
+                    if (given[i]) cls += ' given';
+                    else if (board[i]) cls += ' solved-val';
+
+                    div.className = cls;
+                    div.textContent = board[i] || '';
+                }
+            }
+
+            function boardToString() {
+                let str = '';
+
+                for (let i = 0; i < 81; i++)
+                    str += board[i];
+
+                return str;
+            }
+
+            function solve() {
+                if (!solverWorker) {
+                    setStatus('Worker not available');
+                    return;
+                }
 
                 clearSolution();
                 setStatus('Solving...');
-                solverWorker.postMessage({ type: 'solve', str: str });
+                solveStartTime = performance.now();
+                solverWorker.postMessage({ type: 'solve_sudoku', str: boardToString() });
             }
 
             function clearSolution() {
-                for (let i = 0; i < cells.length; i++)
-                    cells[i].value = null;
-                dominoMap = new Array(cells.length).fill(null);
+                for (let i = 0; i < 81; i++)
+                    board[i] = given[i];
+
                 renderGrid();
                 hideBanner();
+                elStatus.textContent = 'Ready';
+            }
+
+            function clearAll() {
+                board.fill(0);
+                given.fill(0);
+                selectedCell = -1;
+                renderGrid();
+                hideBanner();
+                elStatus.textContent = 'Ready';
+            }
+
+            function loadPreset(str) {
+                for (let i = 0; i < 81; i++) {
+                    const v = str.charCodeAt(i) - 48;
+                    board[i] = v;
+                    given[i] = v;
+                }
+
+                selectedCell = -1;
+                renderGrid();
+                hideBanner();
+                elStatus.textContent = 'Puzzle loaded';
+            }
+
+            function importStr() {
+                const str = elPuzzleStr.value.replace(/[^0-9]/g, '');
+
+                if (str.length !== 81) {
+                    elStatus.textContent = 'Need exactly 81 digits';
+                    return;
+                }
+
+                loadPreset(str);
+            }
+
+            function exportStr() {
+                elPuzzleStr.value = boardToString();
             }
 
             function showBanner(cls, msg) {
-                elSolutionBanner.className = 'solution-banner ' + cls;
-                elSolutionBanner.textContent = msg;
+                elBanner.className = 'solution-banner ' + cls;
+                elBanner.textContent = msg;
             }
 
             function hideBanner() {
-                elSolutionBanner.className = 'solution-banner';
+                elBanner.className = 'solution-banner';
             }
 
             function setStatus(msg) {
                 elStatus.textContent = msg;
             }
 
-            init();
+            document.addEventListener('keydown', (e) => {
+                if (!document.getElementById('view-sudoku').classList.contains('active')) return;
+                if (selectedCell < 0) return;
+
+                const k = e.key;
+
+                if (k >= '1' && k <= '9') { setNumber(parseInt(k)); e.preventDefault(); }
+                else if (k === 'Backspace' || k === 'Delete' || k === '0') { clearCell(); e.preventDefault(); }
+                else if (k === 'ArrowRight' && selectedCell % 9 < 8) { selectedCell++; renderGrid(); e.preventDefault(); }
+                else if (k === 'ArrowLeft' && selectedCell % 9 > 0) { selectedCell--; renderGrid(); e.preventDefault(); }
+                else if (k === 'ArrowDown' && selectedCell < 72) { selectedCell += 9; renderGrid(); e.preventDefault(); }
+                else if (k === 'ArrowUp' && selectedCell >= 9) { selectedCell -= 9; renderGrid(); e.preventDefault(); }
+            });
+
+            document.getElementById('sudMain').addEventListener('wheel', (e) => {
+                e.preventDefault();
+                zoomLevel = Math.min(3.0, Math.max(0.3, zoomLevel + (e.deltaY > 0 ? -0.1 : 0.1)));
+                elGridContainer.style.transform = 'scale(' + zoomLevel + ')';
+            }, { passive: false });
+
+            buildGrid();
+            buildNumpad();
+            buildPresets();
+            renderGrid();
+
+            return { solve, clearSolution, clearAll, clearCell, importStr, exportStr };
+        })();
+
+        switchView(location.hash.replace('#','') || 'pips');
         </script>
     </body>
 </html>

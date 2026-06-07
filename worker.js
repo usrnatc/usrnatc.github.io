@@ -1,29 +1,49 @@
 importScripts('pips.js');
+importScripts('sudsolve.js');
 
-let WasmModule;
+let PipsWasmModule = null;
+let SudokuModuleRef = null;
+let SolveSudokuStr = null;
 
 PipsModule().then(m => {
-    WasmModule = m;
+    PipsWasmModule = m;
+    postMessage({ type: 'ready' });
+});
 
-    postMessage({
-        type: 'ready'
-    });
+SudokuModule().then(function(mod) {
+    SudokuModuleRef = mod;
+    SolveSudokuStr = SudokuModuleRef.cwrap(
+        'SolveSudokuStr', 
+        'string', 
+        ['string']
+    );
+    postMessage({ type: 'ready' });
 });
 
 self.onmessage = function(e) {
-    if (e.data.type === 'solve') {
+    if (e.data.type === 'solve_pips') {
+        if (!PipsWasmModule) {
+            postMessage({ type: 'error', error: 'Pips module not loaded' });
+            return;
+        }
         try {
-            const result = WasmModule.ccall('SolvePuzzleStr', 'string', ['string'], [e.data.str]);
-
-            postMessage({
-                type: 'result',
-                result: result
-            });
+            const result = PipsWasmModule.ccall('SolvePuzzleStr', 'string', ['string'], [e.data.str]);
+            postMessage({ type: 'result', result: result });
         } catch (err) {
-            postMessage({
-                type: 'error',
-                error: err.message
-            });
+            postMessage({ type: 'error', error: err.message });
+        }
+    }
+    
+    if (e.data.type === 'solve_sudoku') {
+        if (!SolveSudokuStr) {
+            postMessage({ type: 'error', error: 'Sudoku module not loaded' });
+            return;
+        }
+        try {
+            const result = SolveSudokuStr(e.data.str);
+            postMessage({ type: 'result', result: result });
+        } catch (err) {
+            postMessage({ type: 'error', error: err.message || 'Solve failed' });
         }
     }
 };
