@@ -151,7 +151,8 @@ Cover(Node* ColHeader)
     }
 }
 
-static void Uncover(Node* ColHeader) 
+static void 
+Uncover(Node* ColHeader) 
 {
     for (Node* RN = ColHeader->Up; RN != ColHeader; RN = RN->Up) {
         for (Node* HN = RN->Left; HN != RN; HN = HN->Left) {
